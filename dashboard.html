@@ -3,143 +3,145 @@
 
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <!-- Primary Meta Tags -->
-  <title>ToDo-Daily</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Primary Meta Tags -->
+    <title>ToDo-Daily</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Sweet Alert -->
-  <link type="text/css" href="./vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link type="text/css" href="./vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
-  <!-- Notyf -->
-  <link type="text/css" href="./vendor/notyf/notyf.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
-    integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/choices.js/10.2.0/choices.min.css"
-    integrity="sha512-oW+fEHZatXKwZQ5Lx5td2J93WJnSFLbnALFOFqy/pTuQyffi9gsUylGGZkD3DTSv8zkoOdU7MT7I6LTDcV8GBQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Volt CSS -->
-  <link type="text/css" href="./css/volt.css" rel="stylesheet">
-  <link type="text/css" rel="stylesheet" href="./css/style.css">
+    <!-- Notyf -->
+    <link type="text/css" href="./vendor/notyf/notyf.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
+        integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/choices.js/10.2.0/choices.min.css"
+        integrity="sha512-oW+fEHZatXKwZQ5Lx5td2J93WJnSFLbnALFOFqy/pTuQyffi9gsUylGGZkD3DTSv8zkoOdU7MT7I6LTDcV8GBQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Volt CSS -->
+    <link type="text/css" href="./css/volt.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="./css/style.css">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon/favicon-16x16.png">
-  <link rel="manifest" href="./assets/img/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/img/favicon/site.webmanifest">
 
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
 <body>
 
-  <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+    <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
 
-  <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
-    <a class="navbar-brand me-lg-5" href="../../index.html">
-      <img class="navbar-brand-dark" src="../../assets/img/brand/light.svg" alt="Volt logo" /> <img
-        class="navbar-brand-light" src="../../assets/img/brand/dark.svg" alt="Volt logo" />
-    </a>
-    <div class="d-flex align-items-center">
-      <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
-        data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </nav>
-
-  <nav id="sidebarMenu" class="sidebar d-lg-block bg-gray-800 text-white collapse" data-simplebar>
-    <div class="sidebar-inner px-4 pt-3">
-      <div class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
+    <nav class="px-4 navbar navbar-dark navbar-theme-primary col-12 d-lg-none">
+        <a class="navbar-brand me-lg-5" href="../../index.html">
+            <img class="navbar-brand-dark" src="../../assets/img/brand/light.svg" alt="Volt logo" /> <img
+                class="navbar-brand-light" src="../../assets/img/brand/dark.svg" alt="Volt logo" />
+        </a>
         <div class="d-flex align-items-center">
-          <div class="avatar-lg me-4">
-            <img src="../../assets/img/team/profile-picture-3.jpg" class="card-img-top rounded-circle border-white"
-              alt="Bonnie Green">
-          </div>
-          <div class="d-block">
-            <h2 class="h5 mb-3">Hi, Jane</h2>
-            <a href="./sign-in.html"
-              class="btn btn-secondary btn-sm d-inline-flex align-items-center">
-
-              Sign Out
-            </a>
-          </div>
+            <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
-        <div class="collapse-close d-md-none">
-          <a href="#sidebarMenu" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
-            aria-expanded="true" aria-label="Toggle navigation">
-            <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </a>
+    </nav>
+
+    <nav id="sidebarMenu" class="text-white bg-gray-800 sidebar d-lg-block collapse" data-simplebar>
+        <div class="px-4 pt-3 sidebar-inner">
+            <div
+                class="pb-4 user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center">
+                <div class="d-flex align-items-center">
+                    <div class="avatar-lg me-4">
+                        <img src="../../assets/img/team/profile-picture-3.jpg"
+                            class="border-white card-img-top rounded-circle" alt="Bonnie Green">
+                    </div>
+                    <div class="d-block">
+                        <h2 class="mb-3 h5">Hi, Jane</h2>
+                        <a href="./sign-in.html" class="btn btn-secondary btn-sm d-inline-flex align-items-center">
+
+                            Sign Out
+                        </a>
+                    </div>
+                </div>
+                <div class="collapse-close d-md-none">
+                    <a href="#sidebarMenu" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
+                        aria-controls="sidebarMenu" aria-expanded="true" aria-label="Toggle navigation">
+                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <ul class="pt-3 nav flex-column pt-md-0">
+                <li class="nav-item">
+                    <a href="../../index.html" class="nav-link d-flex align-items-center">
+                        <span class="sidebar-icon">
+                            <img src="./assets/img/brand/TODODAILY.png" height="20" width="20" alt="Volt Logo">
+                        </span>
+                        <span class="mt-1 ms-1 sidebar-text text-secondary">ToDo-Daily</span>
+                    </a>
+                </li>
+                <li class="nav-item active ">
+                    <a href="../../pages/dashboard/dashboard.html" class="nav-link">
+                        <ion-icon name="tv-sharp" class="me-3"></ion-icon>
+                        <span class="sidebar-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="./tasks.html" class="nav-link">
+                        <ion-icon name="shield-checkmark-sharp" class=" me-3"></ion-icon>
+                        <span class="sidebar-text">Tasks</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item ">
+                    <a href="./categories.html" class="nav-link">
+                        <ion-icon name="list-sharp" class="me-3"></ion-icon>
+                        <span class="sidebar-text">Categories</span>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="./settings.html" class="nav-link">
+                        <ion-icon name="cog-sharp" class="me-3"></ion-icon>
+                        <span class="sidebar-text">Settings</span>
+                    </a>
+                </li>
+
+
+
+
+
+                <li class="nav-item">
+                    <a href="../../pages/upgrade-to-pro.html"
+                        class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro">
+                        <span class="sidebar-icon d-inline-flex align-items-center justify-content-center">
+
+                        </span>
+                        <span>Sign Out</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-      </div>
-      <ul class="nav flex-column pt-3 pt-md-0">
-        <li class="nav-item">
-          <a href="../../index.html" class="nav-link d-flex align-items-center">
-            <span class="sidebar-icon">
-              <img src="./assets/img/brand/TODODAILY.png" height="20" width="20" alt="Volt Logo">
-            </span>
-            <span class="mt-1 ms-1 sidebar-text text-secondary">ToDo-Daily</span>
-          </a>
-        </li>
-        <li class="nav-item  active ">
-          <a href="../../pages/dashboard/dashboard.html" class="nav-link">
-            <ion-icon name="tv-sharp" class="me-3"></ion-icon>
-            <span class="sidebar-text">Dashboard</span>
-          </a>
-        </li>
+    </nav>
 
-        <li class="nav-item ">
-          <a href="./tasks.html" class="nav-link">
-            <ion-icon name="shield-checkmark-sharp" class=" me-3"></ion-icon>
-            <span class="sidebar-text">Tasks</span>
-          </a>
-        </li>
+    <main class="content">
 
-
-        <li class="nav-item ">
-          <a href="./categories.html" class="nav-link">
-            <ion-icon name="list-sharp" class="me-3"></ion-icon>
-            <span class="sidebar-text">Categories</span>
-          </a>
-        </li>
-
-        <li class="nav-item ">
-          <a href="./settings.html" class="nav-link">
-            <ion-icon name="cog-sharp" class="me-3"></ion-icon>
-            <span class="sidebar-text">Settings</span>
-          </a>
-        </li>
-
-
-
-
-
-        <li class="nav-item">
-          <a href="../../pages/upgrade-to-pro.html"
-            class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro">
-            <span class="sidebar-icon d-inline-flex align-items-center justify-content-center">
-
-            </span>
-            <span>Sign Out</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
-  <main class="content">
-
-    <nav class="navbar navbar-top navbar-expand navbar-dashboard navbar-dark ps-0 pe-2 pb-0">
-      <div class="container-fluid px-0">
-        <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
-          <div class="d-flex align-items-center" x-data="{
+        <nav class="pb-0 navbar navbar-top navbar-expand navbar-dashboard navbar-dark ps-0 pe-2">
+            <div class="px-0 container-fluid">
+                <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
+                    <div class="d-flex align-items-center" x-data="{
             openSearch:false,
             search: '',
             checkInput(){
@@ -149,597 +151,619 @@
                 }else{
                   this.openSearch = true;
                 }
-            
+
             }
           }">
-            <!-- Search form -->
-            <form class="navbar-search form-inline" id="navbar-search-main">
-              <div class="input-group input-group-merge search-bar">
-                <span class="input-group-text" id="topbar-addon">
-                  <svg class="icon icon-xs" x-description="Heroicon name: solid/search"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                </span>
-                <input type="text" x-model="search" @input="checkInput()" class="form-control" id="topbarInputIconLeft"
-                  placeholder="Search" aria-label="Search" aria-describedby="topbar-addon">
-              </div>
+                        <!-- Search form -->
+                        <form class="navbar-search form-inline" id="navbar-search-main">
+                            <div class="input-group input-group-merge search-bar">
+                                <span class="input-group-text" id="topbar-addon">
+                                    <svg class="icon icon-xs" x-description="Heroicon name: solid/search"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </span>
+                                <input type="text" x-model="search" @input="checkInput()" class="form-control"
+                                    id="topbarInputIconLeft" placeholder="Search" aria-label="Search"
+                                    aria-describedby="topbar-addon">
+                            </div>
 
-              <div class="dropdown open mt-1">
+                            <div class="mt-1 dropdown open">
 
-                <div class="dropdown-menu " :class="openSearch === true ? 'show' : ''" style="min-width: 20rem;"
-                  aria-labelledby="triggerId">
-                  <div class="dropdown-header mt-2">
-                    <h6 class="text-overflow text-muted mb-1 text-uppercase ">Pages</h6>
-                  </div>
-                  <a class="dropdown-item" href="#">Actionsdsdsd</a>
-                  <a class="dropdown-item disabled" href="#">Disabled action</a>
+                                <div class="dropdown-menu " :class="openSearch === true ? 'show' : ''"
+                                    style="min-width: 20rem;" aria-labelledby="triggerId">
+                                    <div class="mt-2 dropdown-header">
+                                        <h6 class="mb-1 text-overflow text-muted text-uppercase ">Pages</h6>
+                                    </div>
+                                    <a class="dropdown-item" href="#">Actionsdsdsd</a>
+                                    <a class="dropdown-item disabled" href="#">Disabled action</a>
 
-                  <div class="dropdown-header mt-2">
-                    <h6 class="text-overflow text-muted mb-1 text-uppercase">Tasks</h6>
-                  </div>
-                  <a class="dropdown-item" href="#">Actionsdsdsd</a>
-                  <div class="dropdown-header mt-2">
-                    <h6 class="text-overflow text-muted mb-1 text-uppercase">Categories</h6>
-                  </div>
-                  <a class="dropdown-item" href="#">Actionsdsdsd</a>
+                                    <div class="mt-2 dropdown-header">
+                                        <h6 class="mb-1 text-overflow text-muted text-uppercase">Tasks</h6>
+                                    </div>
+                                    <a class="dropdown-item" href="#">Actionsdsdsd</a>
+                                    <div class="mt-2 dropdown-header">
+                                        <h6 class="mb-1 text-overflow text-muted text-uppercase">Categories</h6>
+                                    </div>
+                                    <a class="dropdown-item" href="#">Actionsdsdsd</a>
+                                </div>
+                            </div>
+
+                        </form>
+                        <!-- / Search form -->
+                    </div>
+                    <!-- Navbar links -->
+                    <ul class="navbar-nav align-items-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark notification-bell unread dropdown-toggle"
+                                data-unread-notifications="true" href="#" role="button" data-bs-toggle="dropdown"
+                                data-bs-display="static" aria-expanded="false">
+                                <svg class="text-gray-900 icon icon-sm" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
+                                    </path>
+                                </svg>
+                            </a>
+                            <div class="py-0 mt-2 dropdown-menu dropdown-menu-lg dropdown-menu-center">
+                                <div class="list-group list-group-flush">
+                                    <a href="#"
+                                        class="py-3 text-center text-primary fw-bold border-bottom border-light">Notifications</a>
+                                    <a href="./tasks.html" class="list-group-item list-group-item-action border-bottom">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <div class="flex-shrink-0 avatar-xs me-1">
+                                                    <span class="avatar-title ">
+                                                        <ion-icon name="hourglass-outline" class="fs-2"></ion-icon>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col ps-0 ms-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <h4 class="mb-0 h6 text-small">Task Due Tomorrow</h4>
+                                                    </div>
+
+                                                </div>
+                                                <p class="mt-1 mb-0 font-small" style="font-size: 12px;"> One of your
+                                                    tasks, "Finish Project
+                                                    Proposal," is due tomorrow. Plan your time accordingly to complete
+                                                    it on schedule.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown ms-lg-3">
+                            <a class="px-0 pt-1 nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="media d-flex align-items-center">
+                                    <img class="avatar rounded-circle" alt="Image placeholder"
+                                        src="../../assets/img/team/profile-picture-3.jpg">
+                                    <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
+                                        <span class="mb-0 text-gray-900 font-small fw-bold">Bonnie Green</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="py-1 mt-2 dropdown-menu dashboard-dropdown dropdown-menu-end">
+
+                                <a class="dropdown-item d-flex align-items-center" href="./settings.html">
+                                    <ion-icon name="cog" class=" me-2 fs-5"></ion-icon>
+                                    Settings
+                                </a>
+
+
+                                <div role="separator" class="my-1 dropdown-divider"></div>
+                                <a class="dropdown-item d-flex align-items-center" href="./sign-in.html">
+                                    <ion-icon name="log-out" class="text-danger me-2 fs-5"></ion-icon>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-              </div>
+            </div>
+        </nav>
 
-            </form>
-            <!-- / Search form -->
-          </div>
-          <!-- Navbar links -->
-          <ul class="navbar-nav align-items-center">
-            <li class="nav-item dropdown">
-              <a class="nav-link text-dark notification-bell unread dropdown-toggle" data-unread-notifications="true"
-                href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                <svg class="icon icon-sm text-gray-900" fill="currentColor" viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                  </path>
-                </svg>
-              </a>
-              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-center mt-2 py-0">
-                <div class="list-group list-group-flush">
-                  <a href="#" class="text-center text-primary fw-bold border-bottom border-light py-3">Notifications</a>
-                  <a href="./tasks.html" class="list-group-item list-group-item-action border-bottom">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <div class="avatar-xs me-1 flex-shrink-0">
-                          <span class="avatar-title   ">
-                            <ion-icon name="hourglass-outline" class="fs-2"></ion-icon>
-                          </span>
+        <div class="p-5 my-3 bg-gray-200 rounded">
+            <div class="row d-flex align-items-center">
+                <div class="col-lg-8">
+                    <div class="pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Hi John, Welcome back!</h1>
+
+                        <p class="lead">Stay organized and boost your productivity with our simple and effective to-do
+                            list. Manage
+                            your
+                            tasks, set priorities, and accomplish your goals seamlessly.</p>
+                        <a href="./add-task.html" class="btn btn-lg btn-outline-primary">Add Task +</a>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <img src="./assets/img/illustrations/welcome.png" alt="" srcset="">
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="my-2 text-left card bg-secondary">
+            <img class="card-img-top" src="holder.js/100px180/" alt="">
+            <div class="card-body">
+                <h4 class="mb-0 card-title">Task Progress</h4>
+                <p class="card-text ">30/40 task done</p>
+                <div class="progress-wrapper">
+                    <div class="progress-info">
+                        <div class="progress-label">
+                            <span class="text-primary">Progress</span>
                         </div>
-                      </div>
-                      <div class="col ps-0 ms-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-                            <h4 class="h6 mb-0 text-small">Task Due Tomorrow</h4>
-                          </div>
+                        <div class="progress-percentage ">
+                            <span class="text-primary">60%</span>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;" aria-valuenow="60"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <span class="badge bg-primary p">August 2024</span>
+
+            </div>
+        </div>
+
+
+        <h1 class="my-4 h3">Overview</h1>
+
+        <div class="container">
+            <div class="row gy-3">
+                <div class="col-12 col-lg-6 col-xl-4 col-xxl-4 " id="inprogress-list">
+                    <div class="border-none shadow-none card category-cover bg-gr h-100">
+                        <div class="card-header border-bottom-0">
+                            <div class="d-flex justify-content-between align-items-center ">
+                                <h5 class="mb-0 fs-6 fw-bolder">In progress</h5>
+                                <div class="dropdown"><button type="button"
+                                        class="px-1 py-0 btn btn-sm fs-6 dropdown-toggle" id="dropdownMenuLink"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <ion-icon name="ellipsis-horizontal-sharp" class="fs-5"></ion-icon>
+                                    </button>
+                                    <div class="py-1 mt-2 dropdown-menu dashboard-dropdown dropdown-menu-start"><a
+                                            class="dropdown-item d-flex align-items-center"
+                                            href="./tasks.html"><ion-icon name="link-sharp" class="me-3"></ion-icon>
+                                            View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
-                        <p class="font-small mt-1 mb-0" style="font-size: 12px;"> One of your tasks, "Finish Project
-                          Proposal," is due tomorrow. Plan your time accordingly to complete it on schedule.
-                        </p>
-                      </div>
+
+                        <!-- INPROGRESS CARD -->
+                        <div class="pt-0 card-body drop " data-status="inprogress">
+
+                            <div data-category-id="1" class="kanban-category">
+                                <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
+
+                                    <div
+                                        class="p-0 border-0 card-header d-flex align-items-center justify-content-between ">
+                                        <h1 class="h5">Gloceries</h1>
+                                    </div>
+
+                                    <div class="p-0 card-body">
+
+                                        <div class="progress-wrapper">
+                                            <div class="progress-info">
+                                                <div class="progress-label">
+                                                    <span class="text-primary">Progress</span>
+                                                </div>
+                                                <div class="progress-percentage ">
+                                                    <span class="text-primary">60%</span>
+                                                </div>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width: 60%;" aria-valuenow="60" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="date-category d-flex align-items-center"><ion-icon
+                                                    name="calendar-outline" class="me-1"></ion-icon> 7 Aug, 2024</span>
+
+                                            <span class="d-flex align-items-center"><ion-icon
+                                                    name="checkmark-circle-outline" class="me-1"></ion-icon>
+                                                1/5</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+                        </div>
+                        <!-- END INPROGRESS CARD -->
+
                     </div>
-                  </a>
 
                 </div>
-              </div>
-            </li>
-            <li class="nav-item dropdown ms-lg-3">
-              <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <div class="media d-flex align-items-center">
-                  <img class="avatar rounded-circle" alt="Image placeholder"
-                    src="../../assets/img/team/profile-picture-3.jpg">
-                  <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
-                    <span class="mb-0 font-small fw-bold text-gray-900">Bonnie Green</span>
-                  </div>
-                </div>
-              </a>
-              <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
 
-                <a class="dropdown-item d-flex align-items-center" href="./settings.html">
-                  <ion-icon name="cog" class=" me-2 fs-5"></ion-icon>
-                  Settings
-                </a>
+                <div class="col-12 col-lg-6 col-xl-4 col-xxl-4" id="completed-list">
+                    <div class="border-none shadow-none card category-cover h-100 ">
+                        <div class="card-header border-bottom-0">
+                            <div class="d-flex justify-content-between align-items-center ">
+                                <h5 class="mb-0 fs-6 fw-bolder">Completed</h5>
+                                <div class="dropdown"><button type="button"
+                                        class="px-1 py-0 btn btn-sm fs-6 dropdown-toggle" id="dropdownMenuLink"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <ion-icon name="ellipsis-horizontal-sharp" class="fs-5"></ion-icon>
+                                    </button>
+                                    <div class="py-1 mt-2 dropdown-menu dashboard-dropdown dropdown-menu-start"><a
+                                            class="dropdown-item d-flex align-items-center" href="#"><ion-icon
+                                                name="link-sharp" class="me-3"></ion-icon> View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-0 card-body drop " data-status="completed">
 
-
-                <div role="separator" class="dropdown-divider my-1"></div>
-                <a class="dropdown-item d-flex align-items-center" href="./sign-in.html">
-                  <ion-icon name="log-out" class="text-danger me-2 fs-5"></ion-icon>
-                  Logout
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="bg-gray-200 p-5 rounded my-3">
-      <div class="row d-flex align-items-center">
-        <div class="col-lg-8">
-          <div class=" pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Hi John, Welcome back!</h1>
-
-            <p class="lead">Stay organized and boost your productivity with our simple and effective to-do list. Manage
-              your
-              tasks, set priorities, and accomplish your goals seamlessly.</p>
-            <a href="./add-task.html" class="btn btn-lg btn-outline-primary">Add Task +</a>
-          </div>
-
-        </div>
-
-        <div class="col-lg-4">
-          <img src="./assets/img/illustrations/welcome.png" alt="" srcset="">
-        </div>
-      </div>
+                            <!-- COMPLETED CARD -->
+                            <div data-category-id="3" class="kanban-category">
 
 
+                                <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
 
-    </div>
+                                    <div
+                                        class="p-0 border-0 card-header d-flex align-items-center justify-content-between ">
+                                        <h1 class="h5">Gloceries</h1>
+                                    </div>
 
-    <div class="card text-left bg-secondary my-2">
-      <img class="card-img-top" src="holder.js/100px180/" alt="">
-      <div class="card-body">
-        <h4 class="card-title mb-0">Task Progress</h4>
-        <p class="card-text ">30/40 task done</p>
-        <div class="progress-wrapper">
-          <div class="progress-info">
-            <div class="progress-label">
-              <span class="text-primary">Progress</span>
-            </div>
-            <div class="progress-percentage ">
-              <span class="text-primary">60%</span>
-            </div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;" aria-valuenow="60"
-              aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-        <span class="badge bg-primary p">August 2024</span>
+                                    <div class="p-0 card-body">
+                                        <div class="progress-wrapper">
+                                            <div class="progress-info">
+                                                <div class="progress-label">
+                                                    <span class="text-primary">Progress</span>
+                                                </div>
+                                                <div class="progress-percentage ">
+                                                    <span class="text-primary">60%</span>
+                                                </div>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                    style="width: 60%;" aria-valuenow="60" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="date-category d-flex align-items-center"><ion-icon
+                                                    name="calendar-outline" class="me-1"></ion-icon> 7 Aug, 2024</span>
 
-      </div>
-    </div>
+                                            <span class="d-flex align-items-center"><ion-icon
+                                                    name="checkmark-circle-outline" class="me-1"></ion-icon>
+                                                1/5</span>
+                                        </div>
 
+                                    </div>
+                                </div>
 
-    <h1 class="h3 my-4">Overview</h1>
-    <div class="row gy-3">
-      <div class="col-12 col-lg-6 col-xl-4 col-xxl-4 " id="inprogress-list">
-        <div class="card category-cover border-none shadow-none  bg-gr h-100">
-          <div class="card-header border-bottom-0">
-            <div class="d-flex justify-content-between align-items-center ">
-              <h5 class="fs-6 fw-bolder mb-0">In progress</h5>
-              <div class="dropdown"><button type="button"
-                  class="btn btn-sm fs-6 px-1 py-0 dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <ion-icon name="ellipsis-horizontal-sharp" class="fs-5"></ion-icon>
-                </button>
-                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1"><a
-                    class="dropdown-item d-flex align-items-center" href="./tasks.html"><ion-icon name="link-sharp"
-                      class="me-3"></ion-icon> View
-                  </a>
-                </div>
-              </div>
-            </div>
+                            </div>
+                            <!-- END COMPLETED CARD -->
 
-          </div>
+                        </div>
 
-          <!-- INPROGRESS CARD -->
-          <div class="card-body pt-0 drop " data-status="inprogress">
-
-            <div data-category-id="1" class="kanban-category">
-              <div class="card border-0 shadow p-4 bg-gray-100 my-3">
-
-                <div class="card-header d-flex align-items-center justify-content-between border-0 p-0 ">
-                  <h1 class="h5">Gloceries</h1>
-                </div>
-
-                <div class="card-body  p-0">
-
-                  <div class="progress-wrapper">
-                    <div class="progress-info">
-                      <div class="progress-label">
-                        <span class="text-primary">Progress</span>
-                      </div>
-                      <div class="progress-percentage ">
-                        <span class="text-primary">60%</span>
-                      </div>
                     </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-secondary" role="progressbar" style="width: 60%;" aria-valuenow="60"
-                        aria-valuemin="0" aria-valuemax="100"></div>
+
+                </div>
+                <div class="col-12 col-lg-6 col-xl-4 col-xxl-4" id="overdue-list">
+                    <div class="border-none shadow-none card category-cover h-100 ">
+                        <div class="card-header border-bottom-0">
+                            <div class="d-flex justify-content-between align-items-center ">
+                                <h5 class="mb-0 fs-6 fw-bolder">Overdue</h5>
+                                <div class="dropdown"><button type="button"
+                                        class="px-1 py-0 btn btn-sm fs-6 dropdown-toggle" id="dropdownMenuLink"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <ion-icon name="ellipsis-horizontal-sharp" class="fs-5"></ion-icon>
+                                    </button>
+                                    <div class="py-1 mt-2 dropdown-menu dashboard-dropdown dropdown-menu-start"><a
+                                            class="dropdown-item d-flex align-items-center" href="#"><ion-icon
+                                                name="link-sharp" class="me-3"></ion-icon> View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="pt-0 card-body drop" data-status="overdue">
+                            <!-- OVERDUE CARD -->
+                            <div data-category-id="4" class="kanban-category">
+
+                                <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
+
+                                    <div
+                                        class="p-0 border-0 card-header d-flex align-items-center justify-content-between ">
+                                        <h1 class="h5">Gloceries</h1>
+                                    </div>
+
+                                    <div class="p-0 card-body">
+
+                                        <div class="progress-wrapper">
+                                            <div class="progress-info">
+                                                <div class="progress-label">
+                                                    <span class="text-primary">Progress</span>
+                                                </div>
+                                                <div class="progress-percentage ">
+                                                    <span class="text-primary">60%</span>
+                                                </div>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger" role="progressbar"
+                                                    style="width: 60%;" aria-valuenow="60" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="date-category d-flex align-items-center"><ion-icon
+                                                    name="calendar-outline" class="me-1"></ion-icon> 7 Aug, 2024</span>
+
+                                            <span class="d-flex align-items-center"><ion-icon
+                                                    name="checkmark-circle-outline" class="me-1"></ion-icon>
+                                                1/5</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div data-category-id="5" class="kanban-category">
+
+                                <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
+
+                                    <div
+                                        class="p-0 border-0 card-header d-flex align-items-center justify-content-between ">
+                                        <h1 class="h5">Gloceries</h1>
+                                    </div>
+
+                                    <div class="p-0 card-body">
+
+                                        <div class="progress-wrapper">
+                                            <div class="progress-info">
+                                                <div class="progress-label">
+                                                    <span class="text-primary">Progress</span>
+                                                </div>
+                                                <div class="progress-percentage ">
+                                                    <span class="text-primary">60%</span>
+                                                </div>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger" role="progressbar"
+                                                    style="width: 60%;" aria-valuenow="60" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="date-category d-flex align-items-center"><ion-icon
+                                                    name="calendar-outline" class="me-1"></ion-icon> 7 Aug, 2024</span>
+
+                                            <span class="d-flex align-items-center"><ion-icon
+                                                    name="checkmark-circle-outline" class="me-1"></ion-icon>
+                                                1/5</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- END OVERDUE CARD -->
+
+                        </div>
+
                     </div>
-                  </div>
-
-                  <div class="d-flex align-items-center justify-content-between">
-                    <span class="date-category d-flex align-items-center"><ion-icon name="calendar-outline"
-                        class="me-1"></ion-icon> 7 Aug, 2024</span>
-
-                    <span class="d-flex align-items-center"><ion-icon name="checkmark-circle-outline"
-                        class="me-1"></ion-icon>
-                      1/5</span>
-                  </div>
 
                 </div>
-              </div>
-
-
-            </div>
-
-
-
-
-
-          </div>
-          <!-- END INPROGRESS CARD -->
-
-        </div>
-
-      </div>
-
-      <div class="col-12 col-lg-6 col-xl-4 col-xxl-4" id="completed-list">
-        <div class="card category-cover border-none shadow-none h-100 ">
-          <div class="card-header border-bottom-0">
-            <div class="d-flex justify-content-between align-items-center ">
-              <h5 class="fs-6 fw-bolder mb-0">Completed</h5>
-              <div class="dropdown"><button type="button"
-                  class="btn btn-sm fs-6 px-1 py-0 dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <ion-icon name="ellipsis-horizontal-sharp" class="fs-5"></ion-icon>
-                </button>
-                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1"><a
-                    class="dropdown-item d-flex align-items-center" href="#"><ion-icon name="link-sharp"
-                      class="me-3"></ion-icon> View
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body pt-0 drop " data-status="completed">
-
-            <!-- COMPLETED CARD -->
-            <div data-category-id="3" class="kanban-category">
-
-
-              <div class="card border-0 shadow p-4 bg-gray-100 my-3">
-
-                <div class="card-header d-flex align-items-center justify-content-between border-0 p-0 ">
-                  <h1 class="h5">Gloceries</h1>
-                </div>
-
-                <div class="card-body  p-0">
-                  <div class="progress-wrapper">
-                    <div class="progress-info">
-                      <div class="progress-label">
-                        <span class="text-primary">Progress</span>
-                      </div>
-                      <div class="progress-percentage ">
-                        <span class="text-primary">60%</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 60%;" aria-valuenow="60"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <span class="date-category d-flex align-items-center"><ion-icon name="calendar-outline"
-                        class="me-1"></ion-icon> 7 Aug, 2024</span>
-
-                    <span class="d-flex align-items-center"><ion-icon name="checkmark-circle-outline"
-                        class="me-1"></ion-icon>
-                      1/5</span>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-            <!-- END COMPLETED CARD -->
-
-          </div>
-
-        </div>
-
-      </div>
-      <div class="col-12 col-lg-6 col-xl-4 col-xxl-4" id="overdue-list">
-        <div class="card category-cover border-none shadow-none h-100 ">
-          <div class="card-header border-bottom-0">
-            <div class="d-flex justify-content-between align-items-center ">
-              <h5 class="fs-6 fw-bolder mb-0">Overdue</h5>
-              <div class="dropdown"><button type="button"
-                  class="btn btn-sm fs-6 px-1 py-0 dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <ion-icon name="ellipsis-horizontal-sharp" class="fs-5"></ion-icon>
-                </button>
-                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1"><a
-                    class="dropdown-item d-flex align-items-center" href="#"><ion-icon name="link-sharp"
-                      class="me-3"></ion-icon> View
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="card-body pt-0 drop" data-status="overdue">
-            <!-- OVERDUE CARD -->
-            <div data-category-id="4" class="kanban-category">
-
-              <div class="card border-0 shadow p-4 bg-gray-100 my-3">
-
-                <div class="card-header d-flex align-items-center justify-content-between border-0 p-0 ">
-                  <h1 class="h5">Gloceries</h1>
-                </div>
-
-                <div class="card-body  p-0">
-
-                  <div class="progress-wrapper">
-                    <div class="progress-info">
-                      <div class="progress-label">
-                        <span class="text-primary">Progress</span>
-                      </div>
-                      <div class="progress-percentage ">
-                        <span class="text-primary">60%</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-danger" role="progressbar" style="width: 60%;" aria-valuenow="60"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <span class="date-category d-flex align-items-center"><ion-icon name="calendar-outline"
-                        class="me-1"></ion-icon> 7 Aug, 2024</span>
-
-                    <span class="d-flex align-items-center"><ion-icon name="checkmark-circle-outline"
-                        class="me-1"></ion-icon>
-                      1/5</span>
-                  </div>
-
-                </div>
-              </div>
 
             </div>
-            <div data-category-id="5" class="kanban-category">
-
-              <div class="card border-0 shadow p-4 bg-gray-100 my-3">
-
-                <div class="card-header d-flex align-items-center justify-content-between border-0 p-0 ">
-                  <h1 class="h5">Gloceries</h1>
-                </div>
-
-                <div class="card-body  p-0">
-
-                  <div class="progress-wrapper">
-                    <div class="progress-info">
-                      <div class="progress-label">
-                        <span class="text-primary">Progress</span>
-                      </div>
-                      <div class="progress-percentage ">
-                        <span class="text-primary">60%</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-danger" role="progressbar" style="width: 60%;" aria-valuenow="60"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between">
-                    <span class="date-category d-flex align-items-center"><ion-icon name="calendar-outline"
-                        class="me-1"></ion-icon> 7 Aug, 2024</span>
-
-                    <span class="d-flex align-items-center"><ion-icon name="checkmark-circle-outline"
-                        class="me-1"></ion-icon>
-                      1/5</span>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-            <!-- END OVERDUE CARD -->
-
-          </div>
 
         </div>
 
-      </div>
-
-    </div>
 
 
 
 
-
-    <!-- Modal Body -->
-    <div class="modal fade" id="openModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-      role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalTitleId">
-              Gloceries / In Progress
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row ">
-              <div class="col-12 col-lg-12 ">
-                <div class="description mb-3" x-data="{
+        <!-- Modal Body -->
+        <div class="modal fade" id="openModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Gloceries / In Progress
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row ">
+                            <div class="col-12 col-lg-12 ">
+                                <div class="mb-3 description" x-data="{
                   openDesc : false
                 }">
-                  <span class="h5 fs--1 fw-bolder"> Description </span>
+                                    <span class="h5 fs--1 fw-bolder"> Description </span>
 
 
 
-                  <div class="d-flex align-items-center justify-content-between "
-                    :class="openDesc === true ? 'd-none' : ''">
-                    <ion-icon name="reader-outline" class=" me-2" style="font-size:26px"></ion-icon>
-                    <input type="text" class="form-control-plaintext lead fs-6" readonly value="Description..."
-                      x-on:focus="openDesc = !openDesc">
+                                    <div class="d-flex align-items-center justify-content-between "
+                                        :class="openDesc === true ? 'd-none' : ''">
+                                        <ion-icon name="reader-outline" class=" me-2" style="font-size:26px"></ion-icon>
+                                        <input type="text" class="form-control-plaintext lead fs-6" readonly
+                                            value="Description..." x-on:focus="openDesc = !openDesc">
 
-                  </div>
-                  <div class="hidden-area" x-show="openDesc">
-                    <textarea class="form-control mb-2" placeholder="Description here.." name="" id="" rows="3"
-                      style="resize: none;"></textarea>
-                    <div>
+                                    </div>
+                                    <div class="hidden-area" x-show="openDesc">
+                                        <textarea class="mb-2 form-control" placeholder="Description here.." name=""
+                                            id="" rows="3" style="resize: none;"></textarea>
+                                        <div>
 
 
-                      <button type="button" class="btn btn-gray-200 btn-sm" @click="openDesc = false">
-                        Cancel
-                      </button>
-                      <button type="button" class="btn btn-primary btn-sm">
-                        Save
-                      </button>
+                                            <button type="button" class="btn btn-gray-200 btn-sm"
+                                                @click="openDesc = false">
+                                                Cancel
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-sm">
+                                                Save
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="checklists">
+                                    <span class="h5 fs--1 fw-bolder"> Checklist </span>
+                                    <div class="my-2 list-group ">
+                                        <label class="p-0 list-group-item ">
+                                            <input class="form-check-input me-1" type="checkbox" value="" />
+                                            First checkbox
+                                        </label>
+                                        <label class="p-0 list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox" value="" />
+                                            Second checkbox
+                                        </label>
+                                        <label class="p-0 list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox" value="" />
+                                            Third checkbox
+                                        </label>
+                                        <label class="p-0 list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox" value="" />
+                                            Fourth checkbox
+                                        </label>
+                                        <label class="p-0 list-group-item">
+                                            <input class="form-check-input me-1" type="checkbox" value="" />
+                                            Fifth checkbox
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <div class="date">
+
+                                    <span class="h5 fs--1 fw-bolder"> Due Date </span>
+
+                                    <div class="my-2 input-group"><span class="input-group-text"><ion-icon
+                                                name="calendar"></ion-icon> </span><input data-datepicker=""
+                                            class="form-control datepicker-input in-edit" id="birthday" type="text"
+                                            placeholder="dd/mm/yyyy" required=""></div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
 
                     </div>
 
-                  </div>
 
+
+                    <div class="my-2 checklist">
+
+
+
+                    </div>
+                    <div class="modal-footer border-top-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="checklists">
-                  <span class="h5 fs--1 fw-bolder"> Checklist </span>
-                  <div class="list-group my-2 ">
-                    <label class="list-group-item p-0 ">
-                      <input class="form-check-input me-1" type="checkbox" value="" />
-                      First checkbox
-                    </label>
-                    <label class="list-group-item p-0">
-                      <input class="form-check-input me-1" type="checkbox" value="" />
-                      Second checkbox
-                    </label>
-                    <label class="list-group-item p-0">
-                      <input class="form-check-input me-1" type="checkbox" value="" />
-                      Third checkbox
-                    </label>
-                    <label class="list-group-item p-0">
-                      <input class="form-check-input me-1" type="checkbox" value="" />
-                      Fourth checkbox
-                    </label>
-                    <label class="list-group-item p-0">
-                      <input class="form-check-input me-1" type="checkbox" value="" />
-                      Fifth checkbox
-                    </label>
-                  </div>
 
+        <footer class="p-5 mt-4 mb-4 bg-white rounded shadow">
+            <div class="row ">
+                <div class="mb-4 col-xl-12 mb-md-0">
+                    <p class="mb-0 text-center text-lg-center">© <span class="current-year"></span> <a
+                            class="text-primary fw-normal" href="https://themesberg.com" target="_blank">Dalitso
+                            Mandala</a></p>
                 </div>
-
-                <div class="date">
-
-                  <span class="h5 fs--1 fw-bolder"> Due Date </span>
-
-                  <div class="input-group my-2"><span class="input-group-text"><ion-icon
-                        name="calendar"></ion-icon> </span><input data-datepicker=""
-                      class="form-control datepicker-input in-edit" id="birthday" type="text" placeholder="dd/mm/yyyy"
-                      required=""></div>
-                </div>
-              </div>
-
-
 
             </div>
+        </footer>
+    </main>
 
+    <!-- Core -->
+    <script src="./vendor/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="./vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
-          </div>
+    <!-- Vendor JS -->
+    <script src="./vendor/onscreen/dist/on-screen.umd.min.js"></script>
 
+    <!-- Slider -->
+    <script src="./vendor/nouislider/distribute/nouislider.min.js"></script>
 
+    <!-- Smooth scroll -->
+    <script src="./vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
-          <div class="checklist my-2">
+    <!-- Charts -->
+    <script src="./vendor/chartist/dist/chartist.min.js"></script>
+    <script src="./vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
 
+    <!-- Datepicker -->
+    <script src="./vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
 
+    <!-- Sweet Alerts 2 -->
+    <script src="./vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-          </div>
-          <div class="modal-footer border-top-0">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Moment JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 
+    <!-- Vanilla JS Datepicker -->
+    <script src="./vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
 
-    <footer class="bg-white rounded shadow p-5 mb-4 mt-4">
-      <div class="row  ">
-        <div class="col-xl-12  mb-4 mb-md-0">
-          <p class="mb-0 text-center text-lg-center">© <span class="current-year"></span> <a
-              class="text-primary fw-normal" href="https://themesberg.com" target="_blank">Dalitso Mandala</a></p>
-        </div>
+    <!-- Notyf -->
+    <script src="./vendor/notyf/notyf.min.js"></script>
 
-      </div>
-    </footer>
-  </main>
+    <!-- Simplebar -->
+    <script src="./vendor/simplebar/dist/simplebar.min.js"></script>
 
-  <!-- Core -->
-  <script src="./vendor/@popperjs/core/dist/umd/popper.min.js"></script>
-  <script src="./vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-
-  <!-- Vendor JS -->
-  <script src="./vendor/onscreen/dist/on-screen.umd.min.js"></script>
-
-  <!-- Slider -->
-  <script src="./vendor/nouislider/distribute/nouislider.min.js"></script>
-
-  <!-- Smooth scroll -->
-  <script src="./vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-
-  <!-- Charts -->
-  <script src="./vendor/chartist/dist/chartist.min.js"></script>
-  <script src="./vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-
-  <!-- Datepicker -->
-  <script src="./vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
-
-  <!-- Sweet Alerts 2 -->
-  <script src="./vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
-
-  <!-- Moment JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-
-  <!-- Vanilla JS Datepicker -->
-  <script src="./vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
-
-  <!-- Notyf -->
-  <script src="./vendor/notyf/notyf.min.js"></script>
-
-  <!-- Simplebar -->
-  <script src="./vendor/simplebar/dist/simplebar.min.js"></script>
-
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 
 
-  <!-- Jquery -->
+    <!-- Jquery -->
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-  <!-- Select2 -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
-    integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+        integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 
-  <!-- Volt JS -->
-  <script src="./assets/js/volt.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/choices.js/10.2.0/choices.min.js"
-    integrity="sha512-OrRY3yVhfDckdPBIjU2/VXGGDjq3GPcnILWTT39iYiuV6O3cEcAxkgCBVR49viQ99vBFeu+a6/AoFAkNHgFteg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Volt JS -->
+    <script src="./assets/js/volt.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/choices.js/10.2.0/choices.min.js"
+        integrity="sha512-OrRY3yVhfDckdPBIjU2/VXGGDjq3GPcnILWTT39iYiuV6O3cEcAxkgCBVR49viQ99vBFeu+a6/AoFAkNHgFteg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 
