@@ -66,18 +66,22 @@ class Pages extends Controller
     {
         return view('tasks');
     }
+
     public function editTask()
     {
         return view('edit-task');
     }
+
     public function categories()
     {
         return view('categories');
     }
+
     public function settings()
     {
         return view('settings');
     }
+
     public function addTask()
     {
         return view('add-task');

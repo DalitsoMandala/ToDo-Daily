@@ -416,23 +416,8 @@ d.addEventListener("DOMContentLoaded", function (event) {
       }
     });
 
-    const taskInput = document.querySelector("#taskInput");
-
-    const choiceTask = new Choices(taskInput, {
-      delimiter: ",",
-      editItems: true,
-      placeholder: true,
-      removeItemButton: true,
-    });
 
 
-    const taskCategory = document.querySelector("#taskCategory");
 
-    const choiceCategory = new Choices(taskCategory, {
-        
-        removeItemButton: true,
-    });
-
- 
   });
 });

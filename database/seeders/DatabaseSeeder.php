@@ -3,7 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
+use App\Models\TaskCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +22,25 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        User::create([
+            'name' => 'John Smith',
+            'email' => 'john@example.com',
+            'phone' => '+265997496637',
+            'password' => Hash::make('password')
+        ]);
+
+        TaskCategory::create([
+            'name' => 'Gloceries',
+        ]);
+        TaskCategory::create([
+            'name' => 'Education',
+        ]);
+        TaskCategory::create([
+            'name' => 'Last Meeting',
+        ]);
+        TaskCategory::create([
+            'name' => 'Photograpy',
+        ]);
     }
 }

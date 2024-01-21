@@ -1,5 +1,4 @@
-<x-app-layout>
-
+<div>
     <div class="p-5 my-3 bg-gray-200 rounded">
         <div class="row d-flex align-items-center">
             <div class="col-lg-8">
@@ -409,4 +408,4 @@
         </div>
     </div>
 
-</x-app-layout>
+</div>

@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\Pages;
-use App\Http\Controllers\ProfileController;
+use App\Livewire\AddTasks;
+use App\Livewire\Categories;
+use App\Livewire\Dashboard;
+use App\Livewire\EditTask;
+use App\Livewire\Settings;
+use App\Livewire\Tasks;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,17 +24,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', Dashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/settings', [Pages::class, 'settings'])->name('settings');
-    Route::get('/add-task', [Pages::class, 'addTask'])->name('add-task');
-    Route::get('/edit-task', [Pages::class, 'editTask'])->name('edit-task');
-    Route::get('/categories', [Pages::class, 'categories'])->name('categories');
-    Route::get('/tasks', [Pages::class, 'tasks'])->name('tasks');
-
+    Route::get('/settings', Settings::class)->name('settings');
+    Route::get('/add-task', AddTasks::class)->name('add-task');
+    Route::post('/edit-task/$id', EditTask::class)->name('edit-task');
+    Route::get('/categories', Categories::class)->name('categories');
+    Route::get('/tasks', Tasks::class)->name('tasks');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
