@@ -4,13 +4,18 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Task;
 use App\Models\User;
+use Faker\Factory as Faker;
+use Illuminate\Support\Str;
 use App\Models\TaskCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
+
+
     /**
      * Seed the application's database.
      */
@@ -42,5 +47,17 @@ class DatabaseSeeder extends Seeder
         TaskCategory::create([
             'name' => 'Photograpy',
         ]);
+
+        $faker = Faker::create();
+        foreach (range(1, 20) as $index) {
+
+            Task::create([
+                'name' => $faker->text(30),
+                'due_date' => $faker->date('Y-m-d', now()),
+                'user_id' => 1,
+                'status' => 'inprogress',
+                'task_category_id' => rand(1, 3)
+            ]);
+        }
     }
 }

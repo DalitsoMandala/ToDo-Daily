@@ -11,7 +11,7 @@
                     } else {
                         this.openSearch = true;
                     }
-
+            
                 }
             }">
                 <!-- Search form -->
@@ -127,7 +127,7 @@
 
 
 
-                            <a class="dropdown-item d-flex align-items-center" :href="route('logout')"
+                            <a class="dropdown-item d-flex align-items-center" href="route('logout')"
                                 onclick="event.preventDefault();
                         this.closest('form').submit();">
                                 <ion-icon name="log-out" class="text-danger me-2 fs-5"></ion-icon>

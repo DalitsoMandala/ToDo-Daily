@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('status');
             $table->foreignId('task_category_id')->constrained('task_categories', 'id');
             $table->foreignId('user_id')->constrained('users', 'id');
+            $table->boolean('archived')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

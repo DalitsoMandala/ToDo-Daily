@@ -8,6 +8,7 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
         <!-- Sweet Alert -->
+
         <link type="text/css" href="./vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
         <!-- Notyf -->
@@ -31,13 +32,11 @@
         <link rel="icon" type="image/png" sizes="16x16"
             href="{{ asset('./assets/img/favicon/favicon-16x16.png') }}">
         <link rel="manifest" href="{{ asset('./assets/img/favicon/site.webmanifest') }}">
-        <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
+
 
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <style>
 
-        </style>
-        <!-- Scripts -->
+
         @vite(['resources/js/app.js'])
     </head>
 
@@ -131,13 +130,19 @@
 
 
                     <li class="nav-item">
-                        <a href="../../pages/upgrade-to-pro.html"
-                            class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro">
-                            <span class="sidebar-icon d-inline-flex align-items-center justify-content-center">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="#" href="route('logout')"
+                                onclick="event.preventDefault();
+                        this.closest('form').submit();"
+                                class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro">
+                                <span class="sidebar-icon d-inline-flex align-items-center justify-content-center">
 
-                            </span>
-                            <span>Sign Out</span>
-                        </a>
+                                </span>
+                                <span>Sign Out</span>
+                            </a>
+
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -152,10 +157,15 @@
         </main>
 
 
-        <!-- Core -->
-        <script src="{{ asset('./vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
-        <script src="{{ asset('./vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
+        <!-- Jquery -->
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" data-navigate-once
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+        </script>
         <!-- Vendor JS -->
         <script src="{{ asset('./vendor/onscreen/dist/on-screen.umd.min.js') }}"></script>
 
@@ -191,12 +201,6 @@
         <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 
-
-        <!-- Jquery -->
-
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
         <!-- Select2 -->
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -211,11 +215,13 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
 
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <x-livewire-alert::scripts />
+
         @stack('scripts')
+
         <!-- Volt JS -->
-        <script src="{{ asset('./assets/js/volt.js') }}"></script>
+
     </body>
 
 </html>

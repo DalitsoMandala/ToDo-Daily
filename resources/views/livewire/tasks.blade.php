@@ -1,6 +1,6 @@
 <div>
 
-    <div class="d-lg-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+    <div class="d-lg-flex justify-content-between flex-wrap flex-md-nowrap align-items-baseline py-4">
         <div class="col-auto d-flex justify-content-between ps-0 mb-4 mb-lg-0">
             <div class="me-lg-3">
                 <div class="dropdown"><a href="{{ route('add-task') }}" wire:navigate
@@ -9,224 +9,422 @@
 
                 </div>
             </div>
-            <div class="btn-group">
-                <button class="btn btn-gray-800" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Archive selected"><ion-icon name="archive"></ion-icon></button>
-                <button class="btn btn-gray-800 text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Mark selected"><ion-icon name="checkmark-circle"></ion-icon></button>
-                <button class="btn btn-gray-800 text-white" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Delete selected"><ion-icon name="trash-bin"></ion-icon></button>
+            <div class="btn-group" x-data="{
+                checked: @entangle('taskChecked')
+            }" x-init="const btn1 = $refs.btn_1;
+            const tooltip = new bootstrap.Tooltip(btn1, {
+                placement: 'top',
+                title: 'Archive selected',
+            })
+            
+            
+            const btn3 = $refs.btn_3;
+            const tooltip3 = new bootstrap.Tooltip(btn3, {
+                placement: 'top',
+                title: 'Delete selected',
+            })">
+
+                <div class="dropdown open">
+                    <button @click="$dispatch('task-action', {id: checked})" data-bs-target="#archiveModal"
+                        x-ref="btn_1" data-bs-toggle="modal" class="btn btn-gray-800" :disabled="checked.length === 0">
+                        <ion-icon name="archive" wire:ignore class="text-warning"></ion-icon>
+                    </button>
+
+                    <button :disabled="checked.length === 0" class="btn btn-primary" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <ion-icon name="checkmark-done-circle-outline" class="text-success " wire:ignore></ion-icon>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="markDropdown">
+                        <button class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#markModal"
+                            @click="$dispatch('task-action-mark', {id: checked, type: 'completed'})">Mark
+                            completed</button>
+                        <button class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#markModal"
+                            @click="$dispatch('task-action-mark', {id: checked, type: 'inprogress'})">Mark
+                            Inprogress</button>
+                        <button class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#markModal"
+                            @click="$dispatch('task-action-mark', {id: checked, type:'overdue'})">Mark
+                            Overdue</button>
+                    </div>
+
+                    <button @click="$dispatch('task-action', {id: checked})" data-bs-target="#deleteModal"
+                        x-ref="btn_3" data-bs-toggle="modal" :disabled="checked.length === 0"
+                        class="btn btn-gray-800 text-white">
+                        <ion-icon class="text-danger" wire:ignore name="trash-bin"></ion-icon>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+        <div class="col-12 col-lg-6 d-flex justify-content-lg-end search-task">
+            <div class="row">
+                <div class="col-12"> <input type="text" class="form-control  w-100 fmxw-300 d-im"
+                        placeholder="Search Tasks Here" aria-label="Search" aria-describedby="basic-addon3"
+                        wire:model.live.debounce.500ms='search'></div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+    {{-- List navigation --}}
+    @include('layouts.task-navigation')
+
+
+    {{-- Status --}}
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    @if (session('error-message'))
+        <div class="alert alert-danger">
+            {{ session('error-message') }}
+        </div>
+    @endif
+
+
+
+    {{-- Content --}}
+    <div class="task-wrapper  bg-white shadow border-0 rounded my-4  ">
+        <div class="px-2 py-2 border-bottom d-flex justify-content-between" x-data="{
+            checkAll: @entangle('taskChecked'),
+            clicked: false
+        }"
+            x-init="$watch('clicked', (v) => {
+                if (v === true) {
+                    checkAll = @json($tasks->pluck('id'));
+            
+                } else {
+                    checkAll = [];
+                }
+            });
+            
+            $wire.on('closeModal', (e) => clicked = false)
+            ''">
+            <button @click="clicked = !clicked" :class="clicked === true ? 'active' : ''"
+                class="btn btn-secondary btn-pill" type="button" id="check-all" data-bs-toggle="tooltip"
+                title="Select all"><ion-icon name="checkbox" wire:ignore></ion-icon></button>
+
+            <div class="d-flex align-items-center mx-4">
+                <div class="spinner-border spinner-border-sm my-2" role="status" wire:loading wire:target="search">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+
+                <span class="ms-2 fs--0" wire:loading wire:target="search">Searching...</span>
             </div>
         </div>
-        <div class="col-12 col-lg-6 d-flex justify-content-lg-end"><input type="text"
-                class="form-control w-100 fmxw-300" id="exampleInputIconLeft" placeholder="Search Tasks Here"
-                aria-label="Search" aria-describedby="basic-addon3"></div>
-    </div>
 
-    <div class="d-flex justify-content-between">
-
-        <h1 class="h3">Tasks</h1>
-        <ul class="nav">
-            <li class="nav-item mx-2">
-                <a class="nav-link active btn btn-secondary" aria-current="page" href="./tasks.html">All</a>
-            </li>
-            <li class="nav-item mx-2">
-                <a class="nav-link btn " href="./tasks-inprogress.html"><ion-icon name="analytics"></ion-icon>
-                    Inprogress </a>
-            </li>
-            <li class="nav-item mx-2">
-                <a class="nav-link btn" href="./tasks-completed.html"><ion-icon name="flash"></ion-icon>
-                    Completed</a>
-            </li>
-            <li class="nav-item mx-2">
-                <a class="nav-link btn" href="./tasks-overdue.html" tabindex="-1" aria-disabled="true"><ion-icon
-                        name="alert-circle"></ion-icon> Overdue</a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="task-wrapper border bg-white shadow border-0 rounded my-4 ">
-        <div class="card hover-state border-bottom rounded-0 rounded-top py-3" x-data="{
-            checked: false,
-            checkInput: '',
+        @foreach ($tasks as $task)
+            <div class="card hover-state border-bottom rounded-0 rounded-top-0 py-3" x-data="{
+                checked: false,
+                checkInput: @entangle('taskChecked'),
+                status: null,
+            }"
+                x-init="status = '{{ $task->status }}';">
 
 
-        }">
+                <div class="card-body d-sm-flex align-items-center flex-wrap flex-lg-nowrap py-0">
+                    <div class="col-1 text-left text-sm-center mb-2 mb-sm-0">
+                        <div class="form-check check-lg inbox-check me-sm-2"><input class="form-check-input"
+                                type="checkbox" wire:key='check_{{ $task->id }}' x-model="checkInput"
+                                :value="{{ $task->id }}" x-bind:checked="checked === true ? 'checked' : ''">
 
-            <div class="card-body d-sm-flex align-items-center flex-wrap flex-lg-nowrap py-0">
-                <div class="col-1 text-left text-sm-center mb-2 mb-sm-0">
-                    <div class="form-check check-lg inbox-check me-sm-2"><input class="form-check-input" type="checkbox"
-                            id="mailCheck1" x-model="checkInput" x-bind:checked="checked === true ? 'checked' : ''">
-                        <label class="form-check-label" for="mailCheck1"></label>
-                    </div>
-                </div>
-                <div class="col-11 col-lg-8 px-0 mb-4 mb-md-0">
-                    <div class="mb-2">
-                        <h3 class="h5 " :class="checkInput === true ? 'line-through' : ''">Meeting with Ms.Bonnie
-                            from
-                            Themesberg LLC</h3>
-
-                        <div class="d-inline-flex">
-                            <span class="date-category d-flex align-items-center mx-2"><ion-icon name="calendar-outline"
-                                    class="me-1"></ion-icon> 7 Aug, 2024</span>
-
-                            <span class="d-flex align-items-center mx-2"> <span class="progress-complete"></span>
-                                Completed</span>
-                            <span class="d-flex align-items-center mx-2"><ion-icon name="folder-open"
-                                    class="me-1"></ion-icon> Uncategorized</span>
                         </div>
                     </div>
+                    <div class="col-11 col-lg-8 px-0 mb-4 mb-md-0">
+                        <div class="mb-2">
+                            <h3 class="h5 " :class="status === 'completed' ? 'line-through' : ''">{{ $task->name }}
+                            </h3>
 
-                </div>
-                <div
-                    class="col-10 col-sm-2 col-lg-2 col-xl-2 d-none d-lg-block d-xl-inline-flex align-items-center ms-lg-auto text-right justify-content-end px-md-0">
-                    <div class="dropdown"><button
-                            class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ion-icon
-                                name="ellipsis-horizontal" class="fs-4"></ion-icon><span
-                                class="visually-hidden">Toggle
-                                Dropdown</span></button>
-                        <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1"><a
-                                class="dropdown-item d-flex align-items-center" href="#"><ion-icon name="create"
-                                    class="fs-5 me-2"></ion-icon> Edit </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <ion-icon name="checkmark" class="fs-5 me-2"></ion-icon> Mark as Completed </a><a
-                                class="dropdown-item d-flex align-items-center" href="#"><ion-icon name="trash"
-                                    class="fs-5 me-2"></ion-icon> Delete</a>
+                            <div class="d-inline-flex">
+                                <span class="date-category d-flex align-items-center mx-2">
+                                    <ion-icon wire:ignore name="calendar-outline" class="me-1"></ion-icon>
+                                    {{ \Carbon\Carbon::parse($task->due_date)->format('j M, Y') }}
+                                </span>
+
+                                <span class="d-flex align-items-center mx-2"> <span
+                                        :class="status === 'inprogress' ? 'progress-inprogress' : '' ||
+                                            status === 'completed' ?
+                                            'progress-complete' : '' || status === 'overdue' ? 'progress-overdue' : ''"></span>
+                                    <span x-text="status.charAt(0).toUpperCase() + status.slice(1)"></span>
+                                </span>
+                                <span class="d-flex align-items-center mx-2">
+                                    <ion-icon wire:ignore name="folder-open" class="me-1"></ion-icon>
+                                    {{ $task->category }}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div
+                        class="col-10 col-sm-2 col-lg-2 col-xl-2 d-none d-lg-block d-xl-inline-flex align-items-center ms-lg-auto text-right justify-content-end px-md-0">
+                        <div class="dropdown" x-data="{ checked: @entangle('taskChecked') }">
+                            <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                :disabled="checked.length >= 1">
+                                <ion-icon wire:ignore name="ellipsis-horizontal" class="fs-4"></ion-icon><span
+                                    class="visually-hidden">Toggle
+                                    Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
+                                <a class="dropdown-item d-flex align-items-center" wire:navigate
+                                    href="{{ route('edit-task', $task->id) }}">
+                                    <ion-icon wire:ignore name="create" class="fs-5 me-2"></ion-icon> Edit
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#"
+                                    data-bs-toggle="modal"
+                                    @click="$dispatch('task-action', {id: ['{{ $task->id }}']})"
+                                    data-bs-target="#deleteModal">
+                                    <ion-icon wire:ignore name="trash" class="fs-5 me-2 text-danger"></ion-icon>
+                                    Delete
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
+        @endforeach
+
+        @if ($tasks->hasPages())
+            <div class="row p-4 ">
+
+                <div class="col-7 mt-1">Showing
+                    <span class="fw-semibold">{{ $tasks->firstItem() }}</span>
+                    {!! __('to') !!}
+                    <span class="fw-semibold">{{ $tasks->lastItem() }}</span>
+                    {!! __('of') !!}
+                    <span class="fw-semibold">{{ $tasks->total() }}</span>
+                    {!! __('results') !!}
+                </div>
+
+
+                <div class="col-5">
+
+                    <div class="btn-group float-end">
+                        @if ($tasks->onFirstPage())
+                            <button type="button" class="btn btn-gray-100 disabled" wire:loading.attr="disabled"
+                                wire:click='goPreviousPage'>
+                                <ion-icon name="chevron-back-outline" wire:ignore></ion-icon>
+                            </button>
+                        @else
+                            <button type="button" class="btn btn-gray-100" wire:loading.attr="disabled"
+                                wire:click='goPreviousPage'>
+                                <ion-icon name="chevron-back-outline" wire:ignore></ion-icon>
+                            </button>
+                        @endif
 
 
 
-        </div>
-        <div class="row p-4 ">
-            <div class="col-7 mt-1">Showing 1 - 20 of 289</div>
-            <div class="col-5">
-                <div class="btn-group float-end"><a href="#" class="btn btn-gray-100"><svg class="icon icon-sm"
-                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg> </a><a href="#" class="btn btn-gray-800"><svg class="icon icon-sm"
-                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg></a></div>
+
+                        @if ($tasks->onLastPage())
+                            <button wire:loading.attr="disabled" type="button" class="btn btn-gray-800 disabled"
+                                wire:click='goNextPage()'>
+                                <ion-icon name="chevron-forward-outline" wire:ignore></ion-icon>
+                            </button>
+                        @else
+                            <button wire:loading.attr="disabled" type="button" class="btn btn-gray-800"
+                                wire:click='goNextPage()'>
+                                <ion-icon name="chevron-forward-outline" wire:ignore></ion-icon>
+                            </button>
+                        @endif
+                    </div>
+
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 
 
-    <!-- Modal Body -->
-    <div class="modal fade" id="openModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+
+    <!-- Delete -->
+    <div wire:ignore class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true" x-data="{
+            checked: @entangle('taskChecked'),
+            values: [],
+        
+        }"
+        @task-action.window="values = ($event.detail.id);">
+        <div class="modal-dialog modal-md " role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitleId">
-                        Gloceries / In Progress
-                    </h5>
+                <div class="modal-header border-bottom-0">
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row ">
-                        <div class="col-12 col-lg-12 ">
-                            <div class="description mb-3" x-data="{
-                                openDesc: false
-                            }">
-                                <span class="h5 fs--1 fw-bolder"> Description </span>
-
-
-
-                                <div class="d-flex align-items-center justify-content-between "
-                                    :class="openDesc === true ? 'd-none' : ''">
-                                    <ion-icon name="reader-outline" class=" me-2" style="font-size:26px"></ion-icon>
-                                    <input type="text" class="form-control-plaintext lead fs-6" readonly
-                                        value="Description..." x-on:focus="openDesc = !openDesc">
-
-                                </div>
-                                <div class="hidden-area" x-show="openDesc">
-                                    <textarea class="form-control mb-2" placeholder="Description here.." name="" id="" rows="3"
-                                        style="resize: none;"></textarea>
-                                    <div>
-
-
-                                        <button type="button" class="btn btn-gray-200 btn-sm"
-                                            @click="openDesc = false">
-                                            Cancel
-                                        </button>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            Save
-                                        </button>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="checklists">
-                                <span class="h5 fs--1 fw-bolder"> Checklist </span>
-                                <div class="list-group my-2 ">
-                                    <label class="list-group-item p-0 ">
-                                        <input class="form-check-input me-1" type="checkbox" value="" />
-                                        First checkbox
-                                    </label>
-                                    <label class="list-group-item p-0">
-                                        <input class="form-check-input me-1" type="checkbox" value="" />
-                                        Second checkbox
-                                    </label>
-                                    <label class="list-group-item p-0">
-                                        <input class="form-check-input me-1" type="checkbox" value="" />
-                                        Third checkbox
-                                    </label>
-                                    <label class="list-group-item p-0">
-                                        <input class="form-check-input me-1" type="checkbox" value="" />
-                                        Fourth checkbox
-                                    </label>
-                                    <label class="list-group-item p-0">
-                                        <input class="form-check-input me-1" type="checkbox" value="" />
-                                        Fifth checkbox
-                                    </label>
-                                </div>
-
-                            </div>
-
-                            <div class="date">
-
-                                <span class="h5 fs--1 fw-bolder"> Due Date </span>
-
-                                <div class="input-group my-2"><span class="input-group-text"><ion-icon
-                                            name="calendar"></ion-icon> </span><input data-datepicker=""
-                                        class="form-control datepicker-input in-edit" id="birthday" type="text"
-                                        placeholder="dd/mm/yyyy" required=""></div>
-                            </div>
-                        </div>
-
-
-
+                    <div class="row d-flex justify-content-center">
+                        <p class="text-center">
+                            <ion-icon name="alert-circle-outline" class="text-muted fs-1"></ion-icon>
+                        </p>
                     </div>
 
+                    <div class="row">
 
+                        <p class="text-center" x-show="checked.length === 0 || checked.length ===1 ">Are you sure you
+                            want
+                            to delete this task?</p>
+
+                        <p class="text-center" x-show="checked.length > 1">Are you sure you want
+                            to delete these tasks?</p>
+                    </div>
                 </div>
-
-
-
-                <div class="checklist my-2">
-
-
-
-                </div>
-                <div class="modal-footer border-top-0">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <div class="modal-footer d-flex justify-content-center border-top-0" x-data>
+                    <button type="button" class="btn btn-gray-300 px-5" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger px-5" @click="$wire.taskAction('delete', values);"
+                        data-bs-dismiss="modal">Confirm</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Archive -->
+    <div wire:ignore class="modal fade" id="archiveModal" tabindex="-1" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true" x-data="{
+            checked: @entangle('taskChecked'),
+            values: [],
+        
+        }"
+        @task-action.window="values = ($event.detail.id);">
+        <div class="modal-dialog modal-md " role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center">
+                        <p class="text-center">
+                            <ion-icon name="alert-circle-outline" class="text-muted fs-1"></ion-icon>
+                        </p>
+                    </div>
+
+                    <div class="row">
+
+                        <p class="text-center" x-show="checked.length === 0 || checked.length ===1 ">Are you sure you
+                            want
+                            to archive this task?</p>
+
+                        <p class="text-center" x-show="checked.length > 1">Are you sure you want
+                            to archive these tasks?</p>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center border-top-0" x-data>
+                    <button type="button" class="btn btn-gray-300 px-5" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-secondary px-5"
+                        @click="$wire.taskAction('archived', values);" data-bs-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Mark -->
+    <div wire:ignore class="modal fade" id="archiveModal" tabindex="-1" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true" x-data="{
+            checked: @entangle('taskChecked'),
+            values: [],
+        
+        }"
+        @task-action.window="values = ($event.detail.id);">
+        <div class="modal-dialog modal-md " role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center">
+                        <p class="text-center">
+                            <ion-icon name="alert-circle-outline" class="text-muted fs-1"></ion-icon>
+                        </p>
+                    </div>
+
+                    <div class="row">
+
+                        <p class="text-center" x-show="checked.length === 0 || checked.length ===1 ">Are you sure you
+                            want
+                            to archive this task?</p>
+
+                        <p class="text-center" x-show="checked.length > 1">Are you sure you want
+                            to archive this tasks?</p>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center border-top-0" x-data>
+                    <button type="button" class="btn btn-gray-300 px-5" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-danger px-5" @click="$wire.taskAction('marked', values);"
+                        data-bs-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore class="modal fade" id="markModal" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+        aria-hidden="true" x-data="{
+            checked: @entangle('taskChecked'),
+            values: [],
+            type: '',
+        
+        }"
+        @task-action-mark.window="values = ($event.detail.id); type = $event.detail.type">
+        <div class="modal-dialog modal-md " role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center">
+                        <p class="text-center">
+                            <ion-icon name="alert-circle-outline" class="text-muted fs-1"></ion-icon>
+                        </p>
+                    </div>
+
+                    <div class="row">
+
+                        <p class="text-center" x-show="checked.length === 0 || checked.length ===1 ">Are you sure you
+                            want
+                            to mark this task as <span x-text="type"></span>?</p>
+
+                        <p class="text-center" x-show="checked.length > 1">Are you sure you want
+                            to mark these tasks as <span x-text="type" class="badge"
+                                :class="(type ==='completed' ? 'bg-success' : '') || (type ==='inprogress' ? 'bg-secondary' :
+                                    '') || (type ==='overdue' ? 'bg-danger' : '')"></span>
+                            ?
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center border-top-0" x-data>
+                    <button type="button" class="btn btn-gray-300 px-5" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-success px-5"
+                        @click="$wire.taskAction('marked', values, type);" data-bs-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
 </div>
