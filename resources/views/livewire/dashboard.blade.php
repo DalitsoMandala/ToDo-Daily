@@ -9,7 +9,7 @@
                         list. Manage
                         your
                         tasks, set priorities, and accomplish your goals seamlessly.</p>
-                    <a href="./add-task.html" class="btn btn-lg btn-outline-primary">Add Task +</a>
+                    <a href="{{ route('add-task') }}" class="btn btn-lg btn-outline-primary">Add Task +</a>
                 </div>
 
             </div>
@@ -25,24 +25,41 @@
 
     <div class="my-2 text-left card bg-secondary">
         <img class="card-img-top" src="holder.js/100px180/" alt="">
-        <div class="card-body">
+        <div class="card-body" x-data="{
+            percentage: '',
+            date: '',
+        }" x-init=" completed_tasks = '{{ $completed_tasks }}';
+         total = '{{ $total_tasks }}';
+         percentage = parseFloat(completed_tasks / total) * 100;
+         percentage = Math.round(percentage);
+        
+         const currentDate = new Date();
+        
+         // Get the current date components
+         const year = currentDate.getFullYear();
+         const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+         const day = String(currentDate.getDate()).padStart(2, '0');
+        
+         date = `${day}-${month}-${year}`;">
             <h4 class="mb-0 card-title">Task Progress</h4>
-            <p class="card-text ">30/40 task done</p>
+            <p class="card-text ">{{ $completed_tasks }}/{{ $total_tasks }} task done</p>
             <div class="progress-wrapper">
                 <div class="progress-info">
                     <div class="progress-label">
                         <span class="text-primary">Progress</span>
                     </div>
                     <div class="progress-percentage ">
-                        <span class="text-primary">60%</span>
+                        <span class="text-primary" x-text="percentage+'%'">60%</span>
                     </div>
                 </div>
                 <div class="progress">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;" aria-valuenow="60"
-                        aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 0%;"
+                        x-bind:style="{ width: percentage + '%' }" aria-valuenow="60" aria-valuemin="0"
+                        aria-valuemax="100">
+                    </div>
                 </div>
             </div>
-            <span class="badge bg-primary p">August 2024</span>
+            <span class="badge bg-primary" x-text="date">August 2024</span>
 
         </div>
     </div>
@@ -63,7 +80,7 @@
                                 <ion-icon name="ellipsis-horizontal-sharp" class="fs-5"></ion-icon>
                             </button>
                             <div class="py-1 mt-2 dropdown-menu dashboard-dropdown dropdown-menu-start"><a
-                                    class="dropdown-item d-flex align-items-center" href="./tasks.html"><ion-icon
+                                    class="dropdown-item d-flex align-items-center" href="#"><ion-icon
                                         name="link-sharp" class="me-3"></ion-icon> View
                                 </a>
                             </div>
@@ -73,9 +90,9 @@
                 </div>
 
                 <!-- INPROGRESS CARD -->
-                <div class="pt-0 card-body drop " data-status="inprogress">
-                    @foreach ($categories as $category)
-                        <div data-category-id="{{ $category->id }}" class="kanban-category">
+                <div class="pt-0 card-body drop " data-status="inprogress" wire:ignore>
+                    @foreach ($inprogress_categories as $inprogress)
+                        <div data-category-id="{{ $inprogress->id }}" class="kanban-category">
 
 
                             <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
@@ -83,30 +100,35 @@
 
                                 <div class="p-0 card-body">
 
-                                    <div class="progress-wrapper">
+                                    <div class="progress-wrapper" x-data="{ percentage: '' }" x-init=" completed_tasks = '{{ $inprogress->completed_tasks }}';
+                                     total = '{{ $inprogress->total_tasks }}';
+                                     percentage = parseFloat(completed_tasks / total) * 100;
+                                     percentage = Math.round(percentage);">
                                         <div class="progress-info">
                                             <div class="progress-label">
-                                                <span class="text-primary">{{ $category->name }}</span>
+                                                <span class="text-primary">{{ $inprogress->name }}</span>
                                             </div>
                                             <div class="progress-percentage ">
-                                                <span class="text-primary">60%</span>
+                                                <span class="text-primary" x-text="percentage+'%'"></span>
                                             </div>
                                         </div>
                                         <div class="progress">
-                                            <div class="progress-bar bg-secondary" role="progressbar"
-                                                style="width: 60%;" aria-valuenow="60" aria-valuemin="0"
-                                                aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 0%;"
+                                                x-bind:style="{ width: percentage + '%' }" aria-valuenow="60"
+                                                aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
 
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <span class="date-category d-flex align-items-center"><ion-icon
-                                                name="calendar-outline" class="me-1"></ion-icon>
-                                            {{ \Carbon\Carbon::parse($category->due_date)->format('j M, Y') }}</span>
-
-                                        <span class="d-flex align-items-center"><ion-icon
-                                                name="checkmark-circle-outline" class="me-1"></ion-icon>
-                                            1/5</span>
+                                        <span class="date-category d-flex align-items-center" style="font-size:12px"> <i
+                                                class='bx bx-calendar-check me-2'></i>
+                                            {{ \Carbon\Carbon::parse($inprogress->due_date)->format('j M, Y') }}</span>
+                                        <a href="{{ route('tasks') }}">
+                                            <span class="d-flex align-items-center" style="font-size:12px"><i
+                                                    class='bx bxs-check-circle me-1 text-secondary'></i>
+                                                Tasks
+                                                {{ $inprogress->completed_tasks }}/{{ $inprogress->total_tasks }}</span>
+                                        </a>
                                     </div>
 
                                 </div>
@@ -142,46 +164,59 @@
                         </div>
                     </div>
                 </div>
-                <div class="pt-0 card-body drop " data-status="completed">
+                <div class="pt-0 card-body drop " data-status="completed" wire:ignore>
 
                     <!-- COMPLETED CARD -->
-                    <div data-category-id="3" class="kanban-category">
 
 
-                        <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
 
-                            <div class="p-0 border-0 card-header d-flex align-items-center justify-content-between ">
-                                <h1 class="h5">Gloceries</h1>
-                            </div>
+                    @foreach ($completed_categories as $complete)
+                        <div data-category-id="{{ $complete->id }}" class="kanban-category">
 
-                            <div class="p-0 card-body">
-                                <div class="progress-wrapper">
-                                    <div class="progress-info">
-                                        <div class="progress-label">
-                                            <span class="text-primary">Progress</span>
+
+                            <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
+
+
+                                <div class="p-0 card-body">
+
+                                    <div class="progress-wrapper" x-data="{ percentage: '' }" x-init=" completed_tasks = '{{ $complete->completed_tasks }}';
+                                     total = '{{ $complete->total_tasks }}';
+                                     percentage = parseFloat(completed_tasks / total) * 100;
+                                     percentage = Math.round(percentage);">
+                                        <div class="progress-info">
+                                            <div class="progress-label">
+                                                <span class="text-primary">{{ $complete->name }}</span>
+                                            </div>
+                                            <div class="progress-percentage ">
+                                                <span class="text-primary" x-text="percentage+'%'"></span>
+                                            </div>
                                         </div>
-                                        <div class="progress-percentage ">
-                                            <span class="text-primary">60%</span>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar"
+                                                style="width: 0%;" x-bind:style="{ width: percentage + '%' }"
+                                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 60%;"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="date-category d-flex align-items-center" style="font-size:12px">
+                                            <i class='bx bx-calendar-check me-2'></i>
+                                            {{ \Carbon\Carbon::parse($complete->due_date)->format('j M, Y') }}</span>
+
+                                        <span class="d-flex align-items-center" style="font-size:12px"><i
+                                                class='bx bxs-check-circle me-1 text-success'></i>
+                                            Tasks
+                                            {{ $complete->completed_tasks }}/{{ $complete->total_tasks }}</span>
                                     </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="date-category d-flex align-items-center"><ion-icon
-                                            name="calendar-outline" class="me-1"></ion-icon> 7 Aug, 2024</span>
 
-                                    <span class="d-flex align-items-center"><ion-icon name="checkmark-circle-outline"
-                                            class="me-1"></ion-icon>
-                                        1/5</span>
                                 </div>
-
                             </div>
+
+
                         </div>
+                    @endforeach
 
-                    </div>
+
                     <!-- END COMPLETED CARD -->
 
                 </div>
@@ -208,82 +243,54 @@
                     </div>
 
                 </div>
-                <div class="pt-0 card-body drop" data-status="overdue">
+                <div class="pt-0 card-body drop" data-status="overdue" wire:ignore>
                     <!-- OVERDUE CARD -->
-                    <div data-category-id="4" class="kanban-category">
+                    @foreach ($overdue_categories as $overdue)
+                        <div data-category-id="{{ $overdue->id }}" class="kanban-category">
 
-                        <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
 
-                            <div class="p-0 border-0 card-header d-flex align-items-center justify-content-between ">
-                                <h1 class="h5">Gloceries</h1>
-                            </div>
+                            <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
 
-                            <div class="p-0 card-body">
 
-                                <div class="progress-wrapper">
-                                    <div class="progress-info">
-                                        <div class="progress-label">
-                                            <span class="text-primary">Progress</span>
+                                <div class="p-0 card-body">
+
+                                    <div class="progress-wrapper" x-data="{ percentage: '' }" x-init=" completed_tasks = '{{ $overdue->completed_tasks }}';
+                                     total = '{{ $overdue->total_tasks }}';
+                                     percentage = parseFloat(completed_tasks / total) * 100;
+                                     percentage = Math.round(percentage);">
+                                        <div class="progress-info">
+                                            <div class="progress-label">
+                                                <span class="text-primary">{{ $overdue->name }}</span>
+                                            </div>
+                                            <div class="progress-percentage ">
+                                                <span class="text-primary" x-text="percentage+'%'"></span>
+                                            </div>
                                         </div>
-                                        <div class="progress-percentage ">
-                                            <span class="text-primary">60%</span>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 0%;"
+                                                x-bind:style="{ width: percentage + '%' }" aria-valuenow="60"
+                                                aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 60%;"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="date-category d-flex align-items-center" style="font-size:12px">
+                                            <i class='bx bx-calendar-check me-2'></i>
+                                            {{ \Carbon\Carbon::parse($overdue->due_date)->format('j M, Y') }}</span>
+
+                                        <span class="d-flex align-items-center" style="font-size:12px"><i
+                                                class='bx bxs-check-circle me-1 text-danger'></i>
+                                            Tasks
+                                            {{ $overdue->completed_tasks }}/{{ $overdue->total_tasks }}</span>
                                     </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="date-category d-flex align-items-center"><ion-icon
-                                            name="calendar-outline" class="me-1"></ion-icon> 7 Aug, 2024</span>
 
-                                    <span class="d-flex align-items-center"><ion-icon name="checkmark-circle-outline"
-                                            class="me-1"></ion-icon>
-                                        1/5</span>
                                 </div>
-
                             </div>
+
+
                         </div>
+                    @endforeach
 
-                    </div>
-                    <div data-category-id="5" class="kanban-category">
-
-                        <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
-
-                            <div class="p-0 border-0 card-header d-flex align-items-center justify-content-between ">
-                                <h1 class="h5">Gloceries</h1>
-                            </div>
-
-                            <div class="p-0 card-body">
-
-                                <div class="progress-wrapper">
-                                    <div class="progress-info">
-                                        <div class="progress-label">
-                                            <span class="text-primary">Progress</span>
-                                        </div>
-                                        <div class="progress-percentage ">
-                                            <span class="text-primary">60%</span>
-                                        </div>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 60%;"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="date-category d-flex align-items-center"><ion-icon
-                                            name="calendar-outline" class="me-1"></ion-icon> 7 Aug, 2024</span>
-
-                                    <span class="d-flex align-items-center"><ion-icon name="checkmark-circle-outline"
-                                            class="me-1"></ion-icon>
-                                        1/5</span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
                     <!-- END OVERDUE CARD -->
 
                 </div>
@@ -320,11 +327,17 @@
                             var status = $(this).data("status");
 
                             // Log the result to the console
-                            console.log(`${status} - Updated Order:`, order);
+                            //     console.log(`${status} - Updated Order:`, order);
+
+                            $wire.dispatch('move-card', {
+                                status: status,
+                                order: order
+                            });
                         },
                     })
                     .disableSelection();
 
+                $wire.$refresh();
 
             });
         </script>

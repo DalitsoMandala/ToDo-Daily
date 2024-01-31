@@ -1,6 +1,6 @@
 import "./bootstrap";
 
-U("use strict");
+("use strict");
 const d = document;
 d.addEventListener("DOMContentLoaded", function (event) {
     const swalWithBootstrapButtons = Swal.mixin({
