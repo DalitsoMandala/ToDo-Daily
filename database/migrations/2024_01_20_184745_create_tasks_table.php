@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('due_date');
-            $table->string('status');
+            $table->date('finished_date')->nullable();
+            $table->string('status')->default('inprogress');
             $table->foreignId('task_category_id')->constrained('task_categories', 'id');
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->boolean('archived')->default(false);

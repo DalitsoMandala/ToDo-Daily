@@ -26,11 +26,10 @@ class AddTasks extends Component
 
     public $newCategory;
 
-    #[Validate('required', onUpdate: false)]
+
     public $dueDate;
 
-    #[Validate('required', onUpdate: false)]
-    public $status = 'inprogress';
+
 
     public $openCategory = false;
 
@@ -61,35 +60,43 @@ class AddTasks extends Component
         $this->validate();
 
         try {
-            $category = TaskCategory::find($this->category['value']);
+            $category = TaskCategory::find($this->category);
             foreach ($this->tasks as $task) {
                 $newTask = new Task([
                     'name' => $task['value'],
-                    'due_date' => $this->dueDate,
                     'user_id' => auth()->user()->id,
-                    'status' => $this->status
+
                 ]);
+
+
+                $category->save();
                 $category->tasks()->save($newTask);
             }
 
-            $this->reset();
+
             $this->dispatch('saved');
-            $this->alert('success', 'Saved successfully!');
+            session()->flash('status', 'Task(s) saved successfully!');
+
+            $this->redirect('/tasks', navigate: true);
         } catch (\Exception $e) {
-            $this->alert('error', 'Failed to save!');
+
+            session()->flash('error-message', 'Failed to save!');
         }
     }
 
     public function saveCategory()
     {
         $this->validate([
-            'newCategory' => 'required|max:255'
+            'newCategory' => 'required|max:255',
+            'dueDate' => 'required|date',
+
         ]);
 
         try {
             //code...
             $category =  TaskCategory::create([
                 'name' => $this->newCategory,
+                'due_date' =>  $this->dueDate
             ]);
 
 
@@ -102,11 +109,15 @@ class AddTasks extends Component
                 name: $category->name
             );
         } catch (\Throwable $th) {
-
+            dd($th);
             $this->alert('error', 'Failed to save!');
         }
     }
 
+    public function chooseCategory($value)
+    {
+        $this->category = $value;
+    }
 
 
     public function mount()

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('task_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->tinyInteger('status')->default(0);
+            $table->date('due_date');
             $table->timestamps();
         });
     }

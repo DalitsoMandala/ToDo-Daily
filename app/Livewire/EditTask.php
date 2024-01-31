@@ -100,7 +100,6 @@ class EditTask extends Component
 
     public function updatedCategory($data)
     {
-        dd($data);
 
         // if (!is_array($data)) {
 

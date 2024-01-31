@@ -83,14 +83,20 @@
                                 openCategory: @entangle('openCategory'),
                                 toggleForm() {
                                     this.openCategory = !this.openCategory;
-                                }
+                                },
+                                categoryAlpineModel: '',
+                                category: @entangle('category'),
                             }">
 
 
-                                <div wire:ignore x-data="{
 
-                                }" x-init="const taskCategory = document.querySelector('#taskCategory');
+
+
+
+                                <div wire:ignore x-init="const taskCategory = document.querySelector('#taskCategory');
                                 const choiceCategory = new Choices(taskCategory, { removeItemButton: true });
+
+                                choiceCategory.setChoiceByValue([`${category}`]);
                                 $wire.on('category-added', (event) => {
                                     let category_name = event.name;
                                     let category_id = event.id;
@@ -107,12 +113,30 @@
 
                                 $wire.on('saved', (event) => {
 
-                                    choiceCategory.removeActiveItems();
-                                });">
+                                    //   choiceCategory.removeActiveItems();
+                                });
 
 
-                                    <select class="form-select" id="taskCategory" wire:model='category'>
-                                        <option value="">Select category</option>
+
+
+                                $watch('categoryAlpineModel', (e) => {
+                                    $wire.chooseCategory(e.value);
+                                    if (e.value === '') {
+                                        $wire.chooseCategory(null);
+                                    }
+
+
+
+
+
+
+
+                                })">
+
+
+
+                                    <select class="form-select" id="taskCategory" x-model="categoryAlpineModel">
+                                        <option value="" selected>Select category</option>
                                         @foreach ($taskCategory as $tsk_category)
                                             <option value="{{ $tsk_category->id }}">{{ $tsk_category->name }}</option>t
                                         @endforeach
@@ -132,15 +156,36 @@
                                         +</a>
                                 </div>
                                 <div class="card card-body mt-2 " x-show="openCategory">
-                                    <input type="text" wire:model='newCategory' id="" class="form-control"
-                                        placeholder="Category name..." aria-describedby="helpId" />
+                                    <div class="form-group">
+                                        <label for="">Category name</label>
+                                        <input type="text" wire:model='newCategory' id=""
+                                            class="form-control" placeholder="Category name..."
+                                            aria-describedby="helpId" />
+
+                                        @error('newCategory')
+                                            <small class="text-danger d-block d-flex align-items-center" wire:ignore>
+                                                <ion-icon name="alert-circle-outline"
+                                                    class="me-2"></ion-icon>{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group" x-data="{ dueDate: @entangle('dueDate') }">
+
+                                        <label for="">Due date</label>
+
+                                        <input wire:ignore type="text"
+                                            class="form-control datepicker-input anotherSelector"
+                                            placeholder="YYYY-MM-DD" x-model="dueDate">
 
 
-                                    @error('newCategory')
-                                        <small class="text-danger d-block d-flex align-items-center" wire:ignore> <ion-icon
-                                                name="alert-circle-outline"
-                                                class="me-2"></ion-icon>{{ $message }}</small>
-                                    @enderror
+
+
+                                        @error('dueDate')
+                                            <small class="text-danger d-block d-flex align-items-center" wire:ignore>
+                                                <ion-icon name="alert-circle-outline"
+                                                    class="me-2"></ion-icon>{{ $message }}</small>
+                                        @enderror
+                                    </div>
+
                                     <div class=" d-flex justify-content-end my-2">
                                         <button type="button" class="btn btn-gray-200 me-2" @click="toggleForm()">
                                             Cancel
@@ -153,45 +198,6 @@
                                 </div>
                             </div>
 
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col">
-
-                                        <label for="">Due date</label>
-
-                                        <input type="text" class="form-control datepicker-input anotherSelector"
-                                            placeholder="YYYY-MM-DD" wire:model="dueDate">
-
-
-
-
-                                        @error('dueDate')
-                                            <small class="text-danger d-block d-flex align-items-center" wire:ignore>
-                                                <ion-icon name="alert-circle-outline"
-                                                    class="me-2"></ion-icon>{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                    <div class="col">
-
-
-
-                                        <label for="">Status</label>
-                                        <select class="form-select " wire:model="status">
-
-                                            <option value="inprogress" selected> Inprogress</option>
-                                            <option value="completed">Completed</option>
-                                            <option value="overdue">Overdue</option>
-                                        </select>
-
-
-                                        @error('status')
-                                            <small class="text-danger d-block d-flex align-items-center" wire:ignore>
-                                                <ion-icon name="alert-circle-outline"
-                                                    class="me-2"></ion-icon>{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
 
 
 

@@ -16,8 +16,8 @@
                 placement: 'top',
                 title: 'Archive selected',
             })
-            
-            
+
+
             const btn3 = $refs.btn_3;
             const tooltip3 = new bootstrap.Tooltip(btn3, {
                 placement: 'top',
@@ -106,12 +106,12 @@
             x-init="$watch('clicked', (v) => {
                 if (v === true) {
                     checkAll = @json($tasks->pluck('id'));
-            
+
                 } else {
                     checkAll = [];
                 }
             });
-            
+
             $wire.on('closeModal', (e) => clicked = false)
             ''">
             <button @click="clicked = !clicked" :class="clicked === true ? 'active' : ''"
@@ -162,7 +162,7 @@
                                     <span x-text="status.charAt(0).toUpperCase() + status.slice(1)"></span>
                                 </span>
                                 <span class="d-flex align-items-center mx-2">
-                                    <ion-icon wire:ignore name="folder-open" class="me-1"></ion-icon>
+                                    <ion-icon wire:ignore name="grid" class="me-1"></ion-icon>
                                     {{ $task->category }}
                                 </span>
                             </div>
@@ -257,7 +257,7 @@
         aria-labelledby="modalTitleId" aria-hidden="true" x-data="{
             checked: @entangle('taskChecked'),
             values: [],
-        
+
         }"
         @task-action.window="values = ($event.detail.id);">
         <div class="modal-dialog modal-md " role="document">
@@ -299,7 +299,7 @@
         aria-labelledby="modalTitleId" aria-hidden="true" x-data="{
             checked: @entangle('taskChecked'),
             values: [],
-        
+
         }"
         @task-action.window="values = ($event.detail.id);">
         <div class="modal-dialog modal-md " role="document">
@@ -342,7 +342,7 @@
         aria-labelledby="modalTitleId" aria-hidden="true" x-data="{
             checked: @entangle('taskChecked'),
             values: [],
-        
+
         }"
         @task-action.window="values = ($event.detail.id);">
         <div class="modal-dialog modal-md " role="document">
@@ -384,7 +384,7 @@
             checked: @entangle('taskChecked'),
             values: [],
             type: '',
-        
+
         }"
         @task-action-mark.window="values = ($event.detail.id); type = $event.detail.type">
         <div class="modal-dialog modal-md " role="document">

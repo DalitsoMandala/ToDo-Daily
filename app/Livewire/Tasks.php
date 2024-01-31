@@ -168,13 +168,14 @@ class Tasks extends Component
             ->join('task_categories', 'task_categories.id', '=', 'tasks.task_category_id')
             ->where(function ($query) {
                 $query->where('tasks.name', 'like', '%' . $this->search . '%')
-                    ->orWhere(DB::raw("DATE_FORMAT(tasks.due_date, '%e %M, %Y')"), 'like', '%' . $this->search . '%')
+                    ->orWhere(DB::raw("DATE_FORMAT(task_categories.due_date, '%e %M, %Y')"), 'like', '%' . $this->search . '%')
                     ->orWhere('tasks.status', 'like', '%' . $this->search . '%')
                     ->orWhere('users.name', 'like', '%' . $this->search . '%')
                     ->orWhere('task_categories.name', 'like', '%' . $this->search . '%');
             })
             ->where('archived', 0)
-            ->paginate(5, pageName: 'tasks-page'); // You can adjust the number of items per page (e.g., 10)
+            ->orderByDesc('tasks.updated_at')
+            ->paginate(5, pageName: 'tasks-page'); 
 
         // Load categories for each task
         $tasks->each(function ($task) {

@@ -1,6 +1,6 @@
 import "./bootstrap";
 
-("use strict");
+U("use strict");
 const d = document;
 d.addEventListener("DOMContentLoaded", function (event) {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -368,6 +368,4 @@ d.addEventListener("DOMContentLoaded", function (event) {
             }
         });
     }
-
-
 });
