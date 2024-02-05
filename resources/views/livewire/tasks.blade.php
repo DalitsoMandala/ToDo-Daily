@@ -16,8 +16,8 @@
                 placement: 'top',
                 title: 'Archive selected',
             })
-
-
+            
+            
             const btn3 = $refs.btn_3;
             const tooltip3 = new bootstrap.Tooltip(btn3, {
                 placement: 'top',
@@ -106,18 +106,19 @@
             x-init="$watch('clicked', (v) => {
                 if (v === true) {
                     checkAll = @json($tasks->pluck('id'));
-
+            
                 } else {
                     checkAll = [];
                 }
             });
-
+            
             $wire.on('closeModal', (e) => clicked = false)
             ''">
+
+
             <button @click="clicked = !clicked" :class="clicked === true ? 'active' : ''"
                 class="btn btn-secondary btn-pill" type="button" id="check-all" data-bs-toggle="tooltip"
                 title="Select all"><ion-icon name="checkbox" wire:ignore></ion-icon></button>
-
             <div class="d-flex align-items-center mx-4">
                 <div class="spinner-border spinner-border-sm my-2" role="status" wire:loading wire:target="search">
                     <span class="visually-hidden">Loading...</span>
@@ -126,7 +127,11 @@
                 <span class="ms-2 fs--0" wire:loading wire:target="search">Searching...</span>
             </div>
         </div>
-
+        @if ($tasks->count() === 0)
+            <div class="card-body">
+                <div class="alert alert-warning ">No tasks available!</div>
+            </div>
+        @endif
         @foreach ($tasks as $task)
             <div class="card hover-state border-bottom rounded-0 rounded-top-0 py-3" x-data="{
                 checked: false,
@@ -152,7 +157,7 @@
                             <div class="d-inline-flex">
                                 <span class="date-category d-flex align-items-center mx-2">
                                     <ion-icon wire:ignore name="calendar-outline" class="me-1"></ion-icon>
-                                    {{ \Carbon\Carbon::parse($task->due_date)->format('j M, Y') }}
+                                    {{ \Carbon\Carbon::parse($task->finished_date)->format('j M, Y') }}
                                 </span>
 
                                 <span class="d-flex align-items-center mx-2"> <span
@@ -257,7 +262,7 @@
         aria-labelledby="modalTitleId" aria-hidden="true" x-data="{
             checked: @entangle('taskChecked'),
             values: [],
-
+        
         }"
         @task-action.window="values = ($event.detail.id);">
         <div class="modal-dialog modal-md " role="document">
@@ -299,7 +304,7 @@
         aria-labelledby="modalTitleId" aria-hidden="true" x-data="{
             checked: @entangle('taskChecked'),
             values: [],
-
+        
         }"
         @task-action.window="values = ($event.detail.id);">
         <div class="modal-dialog modal-md " role="document">
@@ -342,7 +347,7 @@
         aria-labelledby="modalTitleId" aria-hidden="true" x-data="{
             checked: @entangle('taskChecked'),
             values: [],
-
+        
         }"
         @task-action.window="values = ($event.detail.id);">
         <div class="modal-dialog modal-md " role="document">
@@ -384,7 +389,7 @@
             checked: @entangle('taskChecked'),
             values: [],
             type: '',
-
+        
         }"
         @task-action-mark.window="values = ($event.detail.id); type = $event.detail.type">
         <div class="modal-dialog modal-md " role="document">

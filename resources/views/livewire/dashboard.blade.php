@@ -26,7 +26,7 @@
     <div class="my-2 text-left card bg-secondary">
         <img class="card-img-top" src="holder.js/100px180/" alt="">
         <div class="card-body" x-data="{
-            percentage: '',
+            percentage: 0,
             date: '',
         }" x-init=" completed_tasks = '{{ $completed_tasks }}';
          total = '{{ $total_tasks }}';
@@ -49,7 +49,7 @@
                         <span class="text-primary">Progress</span>
                     </div>
                     <div class="progress-percentage ">
-                        <span class="text-primary" x-text="percentage+'%'">60%</span>
+                        <span class="text-primary" x-text="percentage+'%'">0%</span>
                     </div>
                 </div>
                 <div class="progress">
@@ -95,7 +95,8 @@
                         <div data-category-id="{{ $inprogress->id }}" class="kanban-category">
 
 
-                            <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
+                            <div class="p-4 my-3 bg-gray-100 border-0 shadow card draggable"
+                                data-href="{{ $inprogress->name }}">
 
 
                                 <div class="p-0 card-body">
@@ -174,7 +175,8 @@
                         <div data-category-id="{{ $complete->id }}" class="kanban-category">
 
 
-                            <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
+                            <div class="p-4 my-3 bg-gray-100 border-0 shadow card draggable"
+                                data-href="{{ $complete->name }}">
 
 
                                 <div class="p-0 card-body">
@@ -246,10 +248,11 @@
                 <div class="pt-0 card-body drop" data-status="overdue" wire:ignore>
                     <!-- OVERDUE CARD -->
                     @foreach ($overdue_categories as $overdue)
-                        <div data-category-id="{{ $overdue->id }}" class="kanban-category">
+                        <div data-category-id="{{ $overdue->id }}" class="kanban-category"
+                            data-href="{{ $overdue->name }}">
 
 
-                            <div class="p-4 my-3 bg-gray-100 border-0 shadow card">
+                            <div class="p-4 my-3 bg-gray-100 border-0 shadow card draggable">
 
 
                                 <div class="p-0 card-body">
@@ -307,38 +310,41 @@
 
     @script
         <script>
-            $(document).ready(function() {
-                var isDragging = false;
-                $(".drop")
-                    .sortable({
-                        connectWith: ".drop",
-                        placeholder: "ui-state-highlight",
-                        placeholder: "portlet-placeholder ui-corner-all",
-                        start: function(e, ui) {
-                            ui.placeholder.height(ui.helper.outerHeight());
-                        },
+            $(".drop")
+                .sortable({
+                    connectWith: ".drop",
+                    handle: '.draggable',
+                    placeholder: "ui-state-highlight",
+                    placeholder: "portlet-placeholder ui-corner-all",
+                    helper: 'clone',
+                    start: function(e, ui) {
+                        ui.placeholder.height(ui.helper.outerHeight());
+                    },
 
-                        stop: function(e, ui) {},
-                        update: function(event, ui) {
-                            // Get the updated order and status
-                            var order = $(this).sortable("toArray", {
-                                attribute: "data-category-id",
-                            });
-                            var status = $(this).data("status");
 
-                            // Log the result to the console
-                            //     console.log(`${status} - Updated Order:`, order);
 
-                            $wire.dispatch('move-card', {
-                                status: status,
-                                order: order
-                            });
-                        },
-                    })
-                    .disableSelection();
+                    stop: function(e, ui) {},
+                    update: function(event, ui) {
+                        ui.item.unbind("click");
+                        // Get the updated order and status
+                        var order = $(this).sortable("toArray", {
+                            attribute: "data-category-id",
+                        });
+                        var status = $(this).data("status");
 
-                $wire.$refresh();
+                        // Log the result to the console
+                        //     console.log(`${status} - Updated Order:`, order);
 
+                        $wire.dispatch('move-card', {
+                            status: status,
+                            order: order
+                        });
+                    },
+                })
+                .disableSelection();
+
+            $('.draggable').on('click', function() {
+                $wire.encryptValue($(this).attr('data-href'));
             });
         </script>
     @endscript

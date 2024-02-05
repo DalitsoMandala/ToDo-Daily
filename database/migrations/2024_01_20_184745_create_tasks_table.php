@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->date('finished_date')->nullable();
             $table->string('status')->default('inprogress');
-            $table->foreignId('task_category_id')->constrained('task_categories', 'id');
+            $table->foreignId('task_category_id')->constrained('task_categories', 'id')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->unsignedSmallInteger('archived')->default(0);
             $table->timestamps();

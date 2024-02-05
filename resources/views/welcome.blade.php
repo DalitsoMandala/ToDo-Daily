@@ -33,7 +33,7 @@
         <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+        <link rel="stylesheet" href="{{ asset('vendor/boxicons/css/boxicons.min.css') }}">
         <!-- Scripts -->
         @vite(['resources/js/app.js'])
     </head>
@@ -63,7 +63,7 @@
                                     @auth
                                         <a href="{{ route('dashboard') }}"
                                             class="btn btn-secondary align-items-center me-4">
-                                            <ion-icon name="apps" class="mx-2"></ion-icon>
+                                            <i class="bx bx-tachometer"></i>
 
 
 
@@ -71,15 +71,14 @@
                                         </a>
                                     @else
                                         <a href="{{ route('login') }}" class="btn btn-secondary align-items-center me-4">
-                                            <ion-icon name="key" class="mx-2"></ion-icon>
+                                            <i class="bx bx-log-in mx-1"></i>
                                             Login
                                         </a>
 
                                         @if (Route::has('register'))
                                             <a href="{{ route('register') }}"
                                                 class="btn btn-white d-inline-flex align-items-center me-4">
-                                                <ion-icon name="person-add" class="mx-2"></ion-icon>
-
+                                                <i class='bx bx-edit mx-1'></i>
                                                 Register
                                             </a>
                                         @endif

@@ -1,3 +1,9 @@
+<style>
+    .notification-bell.unread::before {
+        right: 18px;
+    }
+</style>
+
 <nav class="pb-0 navbar navbar-top navbar-expand navbar-dashboard navbar-dark ps-0 pe-2">
     <div class="px-0 container-fluid">
         <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
@@ -61,12 +67,7 @@
                     <a class="nav-link text-dark notification-bell unread dropdown-toggle"
                         data-unread-notifications="true" href="#" role="button" data-bs-toggle="dropdown"
                         data-bs-display="static" aria-expanded="false">
-                        <svg class="text-gray-900 icon icon-sm" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                            </path>
-                        </svg>
+                        <i class='bx bxs-bell fs-3 text-body'></i>
                     </a>
                     <div class="py-0 mt-2 dropdown-menu dropdown-menu-lg dropdown-menu-center">
                         <div class="list-group list-group-flush">

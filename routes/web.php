@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', Settings::class)->name('settings');
     Route::get('/add-task', AddTasks::class)->name('add-task');
     Route::get('/edit-task/{task}', EditTask::class)->name('edit-task');
-    Route::get('/categories', Categories::class)->name('categories');
+    Route::get('/categories/{name?}', Categories::class)->name('categories');
     Route::get('/tasks', Tasks::class)->name('tasks');
     Route::get('/tasks/inprogress-tasks', InprogressTasks::class)->name('inprogress-tasks');
     Route::get('/tasks/completed-tasks', CompletedTasks::class)->name('completed-tasks');

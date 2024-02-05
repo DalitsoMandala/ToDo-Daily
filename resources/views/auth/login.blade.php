@@ -26,14 +26,14 @@
                                 <label for="email">Your Email or Phone</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
-                                        <ion-icon name="mail"></ion-icon> | <ion-icon name="call"></ion-icon>
+                                        <i class='bx bx-envelope mx-2'></i>
                                     </span>
                                     <input type="email"
                                         class="form-control @error('email')
                                     is-invalid
                         @enderror"
-                                        placeholder="example@company.com/+26599999999" id="email" autofocus
-                                        name="email" value="{{ old('email') }}" required>
+                                        placeholder="example@company.com" id="email" autofocus name="email"
+                                        value="{{ old('email') }}" required>
 
 
                                 </div>
@@ -45,7 +45,7 @@
                                     <label for="password">Your Password</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon2">
-                                            <ion-icon name="lock-closed"></ion-icon>
+                                            <i class="bx bx-key mx-2"></i>
                                         </span>
                                         <input type="password" placeholder="Password"
                                             class="form-control @error('email')

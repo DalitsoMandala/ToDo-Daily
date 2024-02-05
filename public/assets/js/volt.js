@@ -366,47 +366,4 @@ d.addEventListener("DOMContentLoaded", function (event) {
             }
         });
     }
-
-    $(document).ready(function () {
-        var isDragging = false;
-        $(".drop")
-            .sortable({
-                connectWith: ".drop",
-                placeholder: "ui-state-highlight",
-                placeholder: "portlet-placeholder ui-corner-all",
-                start: function (e, ui) {
-                    ui.placeholder.height(ui.helper.outerHeight());
-                },
-
-                stop: function (e, ui) {},
-                update: function (event, ui) {
-                    // Get the updated order and status
-                    var order = $(this).sortable("toArray", {
-                        attribute: "data-category-id",
-                    });
-                    var status = $(this).data("status");
-
-                    // Log the result to the console
-                    console.log(`List ${status} - Updated Order:`, order);
-                },
-            })
-            .disableSelection();
-
-        // Mousedown event for cards
-        $(".kanban-category").on("mousedown", function (e) {
-            // Set the flag when mouse button is pressed
-            isDragging = true;
-        });
-
-        // Mouseup event for cards
-        $(".kanban-category").on("mouseup", function (e) {
-            // Reset the flag when mouse button is released
-            isDragging = false;
-
-            // Check if the card was clicked (not dragged)
-            if (!$(this).hasClass("ui-sortable-helper")) {
-                $("#openModal").modal("show");
-            }
-        });
-    });
 });

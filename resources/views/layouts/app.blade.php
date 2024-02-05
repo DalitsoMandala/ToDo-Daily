@@ -21,6 +21,7 @@
             integrity="sha512-oW+fEHZatXKwZQ5Lx5td2J93WJnSFLbnALFOFqy/pTuQyffi9gsUylGGZkD3DTSv8zkoOdU7MT7I6LTDcV8GBQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <!-- Volt CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
         <link type="text/css" href="{{ asset('./css/volt.css') }}" rel="stylesheet">
@@ -37,6 +38,47 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
         <link rel="stylesheet" href="{{ asset('vendor/boxicons/css/boxicons.min.css') }}">
+
+
+        <style>
+            .table .thead-light th:first-child {
+                border-bottom-left-radius: .5rem;
+                border-top-left-radius: .5rem;
+            }
+
+            .table .thead-light th:last-child {
+                border-bottom-right-radius: .5rem;
+                border-top-right-radius: .5rem;
+            }
+
+            .table>thead {
+                vertical-align: middle;
+            }
+
+            .table-hover tbody tr:hover td:first-child {
+
+                border-bottom-left-radius: .5rem;
+                border-top-left-radius: .5rem;
+                /* Change this to your desired hover color */
+            }
+
+            .table-hover tbody tr:hover td:last-child {
+
+                border-bottom-right-radius: .5rem;
+                border-top-right-radius: .5rem;
+                /* Change this to your desired hover color */
+            }
+
+            .bs5-rotate-90 {
+                transform: rotate(90deg);
+                transition: transform 0.2s ease-in-out;
+            }
+
+            .bs5-rotate-0 {
+                transform: rotate(0deg);
+                transition: transform 0.2s ease-in-out;
+            }
+        </style>
         @vite(['resources/js/app.js'])
     </head>
 
@@ -154,71 +196,77 @@
             @include('layouts.navigation')
             {{ $slot }}
             @include('layouts.footer')
+
+
         </main>
 
 
 
         <!-- Jquery -->
 
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        <script data-navigate-once src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" data-navigate-once
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
         </script>
         <!-- Vendor JS -->
-        <script src="{{ asset('./vendor/onscreen/dist/on-screen.umd.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/onscreen/dist/on-screen.umd.min.js') }}"></script>
 
         <!-- Slider -->
-        <script src="{{ asset('./vendor/nouislider/distribute/nouislider.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/nouislider/distribute/nouislider.min.js') }}"></script>
 
         <!-- Smooth scroll -->
-        <script src="{{ asset('./vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js') }}"></script>
 
         <!-- Charts -->
-        <script src="{{ asset('./vendor/chartist/dist/chartist.min.js') }}"></script>
-        <script src="{{ asset('./vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/chartist/dist/chartist.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}">
+        </script>
 
         <!-- Datepicker -->
-        <script src="{{ asset('./vendor/vanillajs-datepicker/dist/js/datepicker.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/vanillajs-datepicker/dist/js/datepicker.min.js') }}"></script>
 
         <!-- Sweet Alerts 2 -->
-        <script src="{{ asset('./vendor/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 
         <!-- Moment JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+        <script data-navigate-once src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 
         <!-- Vanilla JS Datepicker -->
-        <script src="{{ asset('./vendor/vanillajs-datepicker/dist/js/datepicker.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/vanillajs-datepicker/dist/js/datepicker.min.js') }}"></script>
 
         <!-- Notyf -->
-        <script src="{{ asset('./vendor/notyf/notyf.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/notyf/notyf.min.js') }}"></script>
 
         <!-- Simplebar -->
-        <script src="{{ asset('./vendor/simplebar/dist/simplebar.min.js') }}"></script>
+        <script data-navigate-once src="{{ asset('./vendor/simplebar/dist/simplebar.min.js') }}"></script>
 
         <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <script data-navigate-once async defer src="https://buttons.github.io/buttons.js"></script>
 
 
         <!-- Select2 -->
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script data-navigate-once src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+        <script data-navigate-once type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script data-navigate-once nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script data-navigate-once src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
             integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/choices.js/10.2.0/choices.min.js"
+        <script data-navigate-once src="https://cdnjs.cloudflare.com/ajax/libs/choices.js/10.2.0/choices.min.js"
             integrity="sha512-OrRY3yVhfDckdPBIjU2/VXGGDjq3GPcnILWTT39iYiuV6O3cEcAxkgCBVR49viQ99vBFeu+a6/AoFAkNHgFteg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+        <link data-navigate-oncerel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
 
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script data-navigate-once src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <x-livewire-alert::scripts />
-
         @stack('scripts')
+
+        <script data-navigate-track src="{{ asset('assets/js/volt.js?id=23') }}"></script>
+
 
         <!-- Volt JS -->
 

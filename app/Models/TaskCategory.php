@@ -14,4 +14,15 @@ class TaskCategory extends Model
     {
         return $this->hasMany(Task::class, 'task_category_id');
     }
+
+    public static function codes()
+    {
+        return collect(
+            [
+                ['code' => 0,  'label' => 'Inprogress'],
+                ['code' => 1,  'label' => 'Completed'],
+                ['code' => 2,  'label' => 'Overdue'],
+            ]
+        );
+    }
 }

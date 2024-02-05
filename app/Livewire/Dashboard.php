@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Task;
 use Livewire\Component;
 use App\Models\TaskCategory;
+use Illuminate\Support\Facades\Crypt;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\On;
 
@@ -29,6 +30,7 @@ class Dashboard extends Component
     #[On('move-card')]
     public function moved($status, $order)
     {
+
         if ($status == 'inprogress') {
             foreach ($order as $column) {
                 TaskCategory::find($column)->update([
@@ -55,6 +57,14 @@ class Dashboard extends Component
         }
 
         $this->alert('success', 'Updated!');
+    }
+
+    public function encryptValue($value)
+    {
+
+
+        $value = Crypt::encrypt($value);
+        $this->redirect('/categories/' . $value);
     }
 
     public function render()
@@ -108,7 +118,6 @@ class Dashboard extends Component
 
         $totalTasks = Task::count();
         $completedTasks = Task::where('status', 'completed')->count();
-
 
 
 
