@@ -6,11 +6,28 @@
         }
     </style>
     <div class="container my-5">
+
+        <div class="row">
+            {{-- Status --}}
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            @if (session('error-message'))
+                <div class="alert alert-danger">
+                    {{ session('error-message') }}
+                </div>
+            @endif
+
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card mt-xxl-n5">
                     <div class="card-header">
-                        <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
+                        <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" wire:ignore
+                            role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab"
                                     aria-selected="true">
@@ -30,7 +47,7 @@
                     </div>
                     <div class="card-body p-4">
                         <div class="tab-content">
-                            <div class="tab-pane active show" id="personalDetails" role="tabpanel">
+                            <div class="tab-pane active show" id="personalDetails" role="tabpanel" wire:ignore.self>
                                 <form wire:submit='personalDetails'>
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -39,6 +56,10 @@
                                                     Name</label>
                                                 <input type="text" class="form-control" id="firstnameInput"
                                                     placeholder="Enter your firstname" wire:model='first_name'>
+
+                                                @error('first_name')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -48,6 +69,9 @@
                                                     Name</label>
                                                 <input type="text" class="form-control" id="lastnameInput"
                                                     placeholder="Enter your lastname" wire:model='last_name'>
+                                                @error('last_name')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -57,6 +81,9 @@
                                                     Number</label>
                                                 <input type="text" class="form-control" id="phonenumberInput"
                                                     placeholder="Enter your phone number" wire:model='phone_number'>
+                                                @error('phone_number')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -66,6 +93,9 @@
                                                     Address</label>
                                                 <input type="email" class="form-control" id="emailInput"
                                                     placeholder="Enter your email" wire:model='email'>
+                                                @error('email')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -74,7 +104,7 @@
                                         <div class="col-lg-12">
                                             <div class="hstack gap-2 justify-content-end">
                                                 <button type="submit" class="btn btn-primary">Update</button>
-                                                <button type="button" class="btn btn-soft-success">Cancel</button>
+                                                <button type="button" class="btn btn-secondary">Cancel</button>
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -83,7 +113,7 @@
                                 </form>
                             </div>
                             <!--end tab-pane-->
-                            <div class="tab-pane" id="changePassword" role="tabpanel">
+                            <div class="tab-pane" id="changePassword" role="tabpanel" wire:ignore.self>
                                 <form wire:submit='credentials'>
                                     <div class="row g-2">
                                         <div class="col-lg-4">
@@ -91,7 +121,10 @@
                                                 <label for="oldpasswordInput" class="form-label">Old
                                                     Password*</label>
                                                 <input type="password" class="form-control" id="oldpasswordInput"
-                                                    placeholder="Enter current password">
+                                                    placeholder="Enter current password" wire:model='oldPassword'>
+                                                @error('oldPassword')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -100,7 +133,10 @@
                                                 <label for="newpasswordInput" class="form-label">New
                                                     Password*</label>
                                                 <input type="password" class="form-control" id="newpasswordInput"
-                                                    placeholder="Enter new password">
+                                                    placeholder="Enter new password" wire:model='newPassword'>
+                                                @error('newPassword')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -109,13 +145,17 @@
                                                 <label for="confirmpasswordInput" class="form-label">Confirm
                                                     Password*</label>
                                                 <input type="password" class="form-control" id="confirmpasswordInput"
-                                                    placeholder="Confirm password">
+                                                    placeholder="Confirm password"
+                                                    wire:model='newPassword_confirmation'>
+                                                @error('newPassword_confirmation')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <!--end col-->
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                <a href="javascript:void(0);"
+                                                <a href="#" wire:click='logout'
                                                     class="link-primary text-decoration-underline">Forgot
                                                     Password ?</a>
                                             </div>
@@ -123,7 +163,7 @@
                                         <!--end col-->
                                         <div class="col-lg-12">
                                             <div class="text-end">
-                                                <button type="submit" class="btn btn-success">Change
+                                                <button type="submit" class="btn btn-primary">Change
                                                     Password</button>
                                             </div>
                                         </div>
@@ -131,72 +171,7 @@
                                     </div>
                                     <!--end row-->
                                 </form>
-                                <div class="mt-4 mb-3 border-bottom pb-2">
-                                    <div class="float-end">
-                                        <a href="javascript:void(0);" class="link-primary">All Logout</a>
-                                    </div>
-                                    <h5 class="card-title">Login History</h5>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0 avatar-sm">
-                                        <div class="avatar-title bg-light text-primary rounded-3 fs-18 shadow">
-                                            <i class="ri-smartphone-line"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6>iPhone 12 Pro</h6>
-                                        <p class="text-muted mb-0">Los Angeles, United States - March 16 at
-                                            2:47PM</p>
-                                    </div>
-                                    <div>
-                                        <a href="javascript:void(0);">Logout</a>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0 avatar-sm">
-                                        <div class="avatar-title bg-light text-primary rounded-3 fs-18 shadow">
-                                            <i class="ri-tablet-line"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6>Apple iPad Pro</h6>
-                                        <p class="text-muted mb-0">Washington, United States - November 06
-                                            at 10:43AM</p>
-                                    </div>
-                                    <div>
-                                        <a href="javascript:void(0);">Logout</a>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0 avatar-sm">
-                                        <div class="avatar-title bg-light text-primary rounded-3 fs-18 shadow">
-                                            <i class="ri-smartphone-line"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6>Galaxy S21 Ultra 5G</h6>
-                                        <p class="text-muted mb-0">Conneticut, United States - June 12 at
-                                            3:24PM</p>
-                                    </div>
-                                    <div>
-                                        <a href="javascript:void(0);">Logout</a>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 avatar-sm">
-                                        <div class="avatar-title bg-light text-primary rounded-3 fs-18 shadow">
-                                            <i class="ri-macbook-line"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6>Dell Inspiron 14</h6>
-                                        <p class="text-muted mb-0">Phoenix, United States - July 26 at
-                                            8:10AM</p>
-                                    </div>
-                                    <div>
-                                        <a href="javascript:void(0);">Logout</a>
-                                    </div>
-                                </div>
+
                             </div>
                             <!--end tab-pane-->
 
