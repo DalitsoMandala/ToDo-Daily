@@ -3,11 +3,13 @@
 namespace App\Livewire;
 
 use App\Models\Task;
+use App\Models\User;
 use Livewire\Component;
 use App\Models\TaskCategory;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\TodoCompleted;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Tasks extends Component
@@ -104,6 +106,12 @@ class Tasks extends Component
                     ]);
 
                     session()->flash('status', 'Marked successfully!');
+                    //Notifications
+                    $completedTasks = Task::whereIn('id', $values)->pluck('name')->toArray();
+                    $user = auth()->user();
+                    $notified = $user->notify(new TodoCompleted($completedTasks));
+
+
                     $this->taskChecked = [];
                     $this->dispatch('closeModal');
                 } catch (\Throwable $th) {
@@ -122,11 +130,19 @@ class Tasks extends Component
                     ]);
 
                     session()->flash('status', 'Marked successfully!');
+
+                    //Notifications
+                    $completedTasks = Task::whereIn('id', $values)->pluck('name')->toArray();
+                    $user = auth()->user();
+                    $notified = $user->notify(new TodoCompleted($completedTasks));
+
+
+
                     $this->taskChecked = [];
                     $this->dispatch('closeModal');
                 } catch (\Throwable $th) {
-                        //throw $th;
-                    ;
+                    //throw $th;
+                    dd($th);
                     session()->flash('error-message', 'Something went wrong!');
                 }
             }
@@ -155,7 +171,7 @@ class Tasks extends Component
 
     public function render()
     {
-
+        //dd(User::find(1)->notifications);
         // $categories = TaskCategory::with('tasks')->get();
         // $tasks = collect();
         // foreach ($categories as $category) {
@@ -175,7 +191,7 @@ class Tasks extends Component
             })
             ->where('archived', 0)
             ->orderByDesc('tasks.updated_at')
-            ->paginate(5, pageName: 'tasks-page'); 
+            ->paginate(5, pageName: 'tasks-page');
 
         // Load categories for each task
         $tasks->each(function ($task) {

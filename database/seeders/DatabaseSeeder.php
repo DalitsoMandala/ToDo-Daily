@@ -9,6 +9,7 @@ use App\Models\User;
 use Faker\Factory as Faker;
 use Illuminate\Support\Str;
 use App\Models\TaskCategory;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -48,12 +49,12 @@ class DatabaseSeeder extends Seeder
         TaskCategory::create([
             'name' => 'Last Meeting',
             'status' => 0,
-            'due_date' => $faker->date('Y-m-d', now()),
+            'due_date' => Carbon::tomorrow(),
         ]);
         TaskCategory::create([
             'name' => 'Photograpy',
             'status' => 0,
-            'due_date' => $faker->date('Y-m-d', now()),
+            'due_date' => Carbon::tomorrow(),
         ]);
 
 

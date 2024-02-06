@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('task_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->tinyInteger('status')->default(0);
-            $table->date('due_date');
-            $table->boolean('is_notified')->default(false);
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('task_categories');
+        Schema::dropIfExists('notifications');
     }
 };
