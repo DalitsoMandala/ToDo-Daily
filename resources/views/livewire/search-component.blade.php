@@ -1,5 +1,5 @@
 <div>
-    <div class="d-flex align-items-center" x-data="{
+    <div class="d-flex align-items-center" x-cloak x-data="{
         data: $store.data,
 
         openSearch: false,

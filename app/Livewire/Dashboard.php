@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Task;
 use Livewire\Component;
 use App\Models\TaskCategory;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\On;
@@ -25,7 +26,7 @@ class Dashboard extends Component
     public $Ovr;
 
 
-
+    public $eventTitle;
 
     #[On('move-card')]
     public function moved($status, $order)
@@ -57,6 +58,14 @@ class Dashboard extends Component
         }
 
         $this->alert('success', 'Updated!');
+    }
+
+    #[On('show-event')]
+    public function showTitle($title, $date, $id)
+    {
+
+        $date = Carbon::parse($date)->format('j M, Y');
+        $this->dispatch('alpine-show', title: $title, date: $date, status: Task::find($id)->status);
     }
 
     public function encryptValue($value)
@@ -119,6 +128,38 @@ class Dashboard extends Component
         $totalTasks = Task::count();
         $completedTasks = Task::where('status', 'completed')->count();
 
+        $tasks = Task::select('name', 'finished_date as due_date', 'status', 'id')->get();
+
+        $events = [];
+
+        foreach ($tasks as $task) {
+            //  id: 1,
+            //         title: 'Call with Jane',
+            //         start: '2020-11-18',
+            //         end: '2020-11-19',
+            //         className: 'bg-red'
+            $borderColor = '';
+            if ($task->status == 'inprogress') {
+                $task->status = 'bg-warning';
+                $borderColor = '#f0bc74';
+            }
+            if ($task->status == 'completed') {
+                $task->status = 'bg-success';
+                $borderColor = '#10b981';
+            }
+            if ($task->status == 'overdue') {
+                $task->status = 'bg-danger';
+                $borderColor = '#CA1A41';
+            }
+
+            $events[] = [
+                'id' => $task->id,
+                'title' => $task->name,
+                'start' => $task->due_date,
+                'className' => $task->status,
+                'borderColor' => $borderColor
+            ];
+        }
 
 
         // $this->inP = $inprogressCategories;
@@ -131,7 +172,8 @@ class Dashboard extends Component
             'completed_categories' => $completedCategories,
             'overdue_categories' => $overdueCategories,
             'total_tasks' => $totalTasks,
-            'completed_tasks' => $completedTasks
+            'completed_tasks' => $completedTasks,
+            'events' => $events,
         ]);
     }
 }

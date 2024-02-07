@@ -26,7 +26,7 @@
                     </a>
                     <div class="py-1 mt-2 dropdown-menu dashboard-dropdown dropdown-menu-end">
 
-                        <a class="dropdown-item d-flex align-items-center" href="./settings.html">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('settings') }}">
                             <ion-icon name="cog" class=" me-2 fs-5"></ion-icon>
                             Settings
                         </a>

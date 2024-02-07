@@ -38,7 +38,9 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
         <link rel="stylesheet" href="{{ asset('vendor/boxicons/css/boxicons.min.css') }}">
-
+        <script src="{{ asset('vendor/fullcalendar/index.global.js') }}"></script>
+        <script src='{{ asset('vendor/fullcalendar/index1.global.min.js') }}'></script>
+        <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
 
         <style>
             .table .thead-light th:first-child {
@@ -111,11 +113,21 @@
                                 class="border-white card-img-top rounded-circle" alt="Bonnie Green">
                         </div>
                         <div class="d-block">
-                            <h2 class="mb-3 h5">Hi, Jane</h2>
-                            <a href="./sign-in.html" class="btn btn-secondary btn-sm d-inline-flex align-items-center">
+                            <h2 class="mb-3 h5">Hi, {{ Auth::user()->name }}</h2>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
 
-                                Sign Out
-                            </a>
+
+
+                                <a class="btn btn-secondary btn-sm d-inline-flex align-items-center"
+                                    href="route('logout')"
+                                    onclick="event.preventDefault();
+                        this.closest('form').submit();">
+                                    <i class="text-dark bx bx-log-out me-2 fs-5"></i>
+                                    {{ __('Log Out') }}
+                                </a>
+                            </form>
+
                         </div>
                     </div>
                     <div class="collapse-close d-md-none">
@@ -268,7 +280,7 @@
         <x-livewire-alert::scripts />
         @stack('scripts')
 
-        <script data-navigate-track src="{{ asset('assets/js/volt.js?id=23') }}"></script>
+        <script data-navigate-once src="{{ asset('assets/js/volt.js') }}"></script>
 
 
         <!-- Volt JS -->

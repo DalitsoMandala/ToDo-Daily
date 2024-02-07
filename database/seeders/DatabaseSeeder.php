@@ -39,12 +39,12 @@ class DatabaseSeeder extends Seeder
         TaskCategory::create([
             'name' => 'Gloceries',
             'status' => 0,
-            'due_date' => $faker->date('Y-m-d', now()),
+            'due_date' => $faker->dateTimeBetween('-1 month', now()),
         ]);
         TaskCategory::create([
             'name' => 'Education',
             'status' => 0,
-            'due_date' => $faker->date('Y-m-d', now()),
+            'due_date' => $faker->dateTimeBetween('-1 month', now()),
         ]);
         TaskCategory::create([
             'name' => 'Last Meeting',
@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
 
             Task::create([
                 'name' => $faker->text(30),
-                'finished_date' => $faker->date('Y-m-d', now()),
+                'finished_date' =>         $faker->dateTimeBetween('-1 month', now()),
                 'user_id' => 1,
                 'status' => 'inprogress',
                 'task_category_id' => rand(1, 3),
