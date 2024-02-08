@@ -70,6 +70,12 @@ Generating a New Application Key
 php artisan key:generate
 ```
 
+## Uploads
+```
+php artisan storage:link
+```
+
+
 ## License
 
 > Copyright (C) 2024 Visual Concept Media.  
