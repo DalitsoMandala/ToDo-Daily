@@ -10,7 +10,7 @@
 
 # Todo-Daily
 
-This a to-do list platform for anyone who wants to keep track of their daily tasks.
+This a to-do list platform for anyone who wants to keep track of their daily tasks. Made with Laravel ^10.10
 
 
 ## Requirements
