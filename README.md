@@ -72,5 +72,5 @@ php artisan key:generate
 
 ## License
 
-> Copyright (C) 2021 Visual Concept Media.  
+> Copyright (C) 2024 Visual Concept Media.  
 
