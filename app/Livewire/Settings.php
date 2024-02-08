@@ -5,19 +5,22 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Validate;
+use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use PhpParser\Node\Stmt\TryCatch;
 
 class Settings extends Component
 {
 
-
-
+    use WithFileUploads;
+    use LivewireAlert;
     public $first_name;
 
     public $last_name;
@@ -30,6 +33,48 @@ class Settings extends Component
     public $newPassword;
     public $newPassword_confirmation;
 
+
+    public $uploadedFile;
+
+
+    public function uploadImage()
+    {
+
+        try {
+            $user =  User::find(auth()->user()->id);
+
+            $timestamp = now()->timestamp;
+
+            $extension = $this->uploadedFile->getClientOriginalExtension();
+
+            // Generate a unique filename with timestamp and original extension
+            $filename = $timestamp . '_' . Str::random(20) . '.' . $extension;
+            //upload file
+            $this->uploadedFile->storeAs('avatars', $filename, 'public');
+
+
+
+            if ($user->setting === null) {
+
+                $user->setting()->create([
+                    'image' => $filename,
+
+                ]);
+            } else {
+
+                $user->setting()->update([
+                    'image' => $filename,
+
+                ]);
+            }
+
+
+            $this->dispatch('removeUploadedFile');
+            $this->alert('success', __('Profile photo updated successfully!'));
+        } catch (\Exception $e) {
+            $this->alert('error', __('Error, something went wrong!'));
+        }
+    }
 
     public function personalDetails()
     {
@@ -54,7 +99,7 @@ class Settings extends Component
             $person->phone = $this->phone_number;
             $person->save();
 
-            if ($person->setting) {
+            if ($person->setting === null) {
                 $person->setting()->update([
                     'first_name' => $this->first_name,
                     'last_name' => $this->last_name,
@@ -130,7 +175,16 @@ class Settings extends Component
             ]);
         }
 
+        $user = User::find(Auth::user()->id);
+        $profile_image = null;
+        if ($user->setting !== null) {
+            $profile_image = $user->setting->image;
+        }
 
-        return view('livewire.settings');
+
+
+        return view('livewire.settings', [
+            'profile_image' => $profile_image
+        ]);
     }
 }

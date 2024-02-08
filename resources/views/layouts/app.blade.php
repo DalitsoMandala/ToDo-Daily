@@ -41,7 +41,7 @@
         <script src="{{ asset('vendor/fullcalendar/index.global.js') }}"></script>
         <script src='{{ asset('vendor/fullcalendar/index1.global.min.js') }}'></script>
         <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
-
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
         <style>
             .table .thead-light th:first-child {
                 border-bottom-left-radius: .5rem;
@@ -108,8 +108,12 @@
                     class="pb-4 user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center">
                     <div class="d-flex align-items-center">
                         <div class="avatar-lg me-4">
-                            <img src="../../assets/img/team/profile-picture-3.jpg"
-                                class="border-white card-img-top rounded-circle" alt="Bonnie Green">
+                       @if (auth()->user()->setting !== null)
+                                <img class="avatar rounded-circle" style="object-fit: cover" alt="profile-logo"
+                                    src="{{ '/storage/avatars/' . auth()->user()->setting->image }}">
+                            @else
+                                <img class="avatar rounded-circle" src="{{ asset('assets/img/blank.jpg') }}">
+                            @endif
                         </div>
                         <div class="d-block">
                             <h2 class="mb-3 h5">Hi, {{ Auth::user()->name }}</h2>
@@ -203,7 +207,7 @@
                 </ul>
             </div>
 
-           
+
         </nav>
 
 
@@ -278,6 +282,27 @@
 
         <script data-navigate-once src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+        <script data-navigate-once
+            src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js">
+        </script>
+        <script data-navigate-once src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js">
+        </script>
+        <script data-navigate-once src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js">
+        </script>
+        <script data-navigate-once
+            src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
+        <script data-navigate-once src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js">
+        </script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+        <script data-navigate-once src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+        <script>
+            // Register the plugin
+            FilePond.registerPlugin(FilePondPluginFileValidateSize);
+            FilePond.registerPlugin(FilePondPluginFileValidateType);
+            // ... FilePond initialisation code here
+        </script>
         <x-livewire-alert::scripts />
         @stack('scripts')
 

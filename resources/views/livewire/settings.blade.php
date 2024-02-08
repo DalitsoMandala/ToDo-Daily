@@ -4,6 +4,31 @@
         .card-header-tabs .nav-link.active {
             border-bottom: 2px solid #1F2937;
         }
+
+        .filepond--root .filepond--credits[style] {
+            display: none;
+        }
+
+        .filepond--root {
+            margin-bottom: 0;
+        }
+
+        .filepond--drop-label {
+            background-color: #f0f0f0;
+            /* Change this to your desired color */
+            border: 2px dashed #ccc;
+            /* Change this to your desired border style */
+            padding: 40px;
+            /* Optional: Add padding */
+            border-radius: 5px;
+
+            height: inherit;
+            /* Optional: Add border radius */
+        }
+
+        .object-cover {
+            object-fit: cover;
+        }
     </style>
     <div class="container my-5">
 
@@ -22,6 +47,82 @@
             @endif
 
         </div>
+
+
+
+        <div class="row">
+            <div class="col">
+                <div class="card card-body border-0 shadow mb-4 ">
+                    <h2 class="h5 mb-4">Select profile photo</h2>
+                    <div class="d-flex align-items-center ">
+                        <div class="me-3">
+
+                            @if ($uploadedFile)
+                                <img class="rounded avatar-xl object-cover" src="{{ $uploadedFile->temporaryUrl() }}">
+                            @else
+                                @if ($profile_image === null)
+                                    <img class="rounded avatar-xl object-cover"
+                                        src="{{ asset('assets/img/blank.jpg') }}">
+                                @else
+                                    <img class="rounded avatar-xl object-cover"
+                                        src="{{ asset('storage/avatars/' . $profile_image) }}">
+                                @endif
+                            @endif
+                        </div>
+                        <div class="file-field col">
+                            <div class="row " wire:ignore x-data="{}" x-init="pond = FilePond.create($refs.input, {
+                                server: {
+                                    process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                            
+                            
+                                        @this.upload('uploadedFile', file, load, error, progress)
+                            
+                                    },
+                                    revert: (filename, load) => {
+                                        @this.removeUpload('uploadedFile', filename, load)
+                            
+                            
+                                    },
+                                },
+                                acceptedFileTypes: ['image/png', 'image/jpeg'],
+                                labelFileTypeNotAllowed: 'File of invalid type',
+                                fileValidateTypeLabelExpectedTypesMap: { 'image/jpeg': '.jpg or .jpeg', 'image/png': '.png' },
+                                // maxFileSize: '1MB',
+                                //  instantUpload: false,
+                            
+                                allowRemove: true,
+                            
+                            });
+                            
+                            $wire.on('removeUploadedFile', function() {
+                                pond.removeFiles({ revert: true });
+                            
+                            });">
+
+                                <div class="col">
+
+                                    <input type="file" x-ref="input" wire:model='uploadedFile' />
+                                    @error('uploadedFile')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end" x-data="{ image: @entangle('uploadedFile') }" x-cloak>
+                        <form wire:submit='uploadImage' x-show="image != null">
+                            <button type="submit" class="btn btn-primary">
+                                Change image
+                            </button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col">
                 <div class="card mt-xxl-n5">

@@ -17,8 +17,14 @@
                     <a class="px-0 pt-1 nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <div class="media d-flex align-items-center">
-                            <img class="avatar rounded-circle" alt="Image placeholder"
-                                src="../../assets/img/team/profile-picture-3.jpg">
+
+                            @if (auth()->user()->setting !== null)
+                                <img class="avatar rounded-circle" style="object-fit: cover" alt="profile-logo"
+                                    src="{{ '/storage/avatars/' . auth()->user()->setting->image }}">
+                            @else
+                                <img class="avatar rounded-circle" src="{{ asset('assets/img/blank.jpg') }}">
+                            @endif
+
                             <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                                 <span class="mb-0 text-gray-900 font-small fw-bold">{{ Auth::user()->name }}</span>
                             </div>

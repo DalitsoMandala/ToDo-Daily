@@ -163,14 +163,14 @@
 
             // Log out the filtered tasks
             for (const [id, name] of filteredTasks) {
-                console.log(`${id}: ${name}`);
+            //    console.log(`${id}: ${name}`);
             }
 
 
             const filteredPages = Object.entries(data.pages).filter(([page, link]) => page.includes('as'));
             // Log out the filtered tasks
             for (const [page, link] of filteredPages) {
-                console.log(`${page}: ${link}`);
+             //   console.log(`${page}: ${link}`);
             }
 
 
@@ -178,7 +178,7 @@
             const filteredCategories = Object.entries(data.categories).filter(([id, name]) => name.includes('as'));
             // Log out the filtered tasks
             for (const [id, name] of filteredCategories) {
-                console.log(`${id}: ${name}`);
+           //     console.log(`${id}: ${name}`);
             }
         </script>
     @endscript
