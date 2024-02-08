@@ -7,3 +7,70 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+
+# Todo-Daily
+
+This a to-do list platform for anyone who wants to keep track of their daily tasks.
+
+
+## Requirements
+```bash
+PHP = ^8.2
+
+MySQL = ^15.1
+
+```
+## Installation
+
+Clone repository
+
+```bash
+git clone https://github.com/DalitsoMandala/ToDo_Daily.git
+```
+
+Install Composer
+
+
+[Download Composer](https://getcomposer.org/download/)
+
+Install Nodejs
+
+[Download Node.js](https://nodejs.org/en/download/)
+
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev 
+```
+
+On live server
+
+```bash
+  npm run build 
+```
+
+## Database
+
+
+Go into .env file and change Database and Email credentials.
+
+```
+php artisan migrate
+```
+
+Generating a New Application Key
+```
+php artisan key:generate
+```
+
+## License
+
+> Copyright (C) 2021 Visual Concept Media.  
+
