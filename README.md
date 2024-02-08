@@ -78,5 +78,5 @@ php artisan storage:link
 
 ## License
 
-> Copyright (C) 2024 Visual Concept Media.  
+> Copyright (C) 2024 Dalitso Mandala.  
 
