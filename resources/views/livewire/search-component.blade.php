@@ -62,10 +62,11 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </span>
-                <input type="text" x-model="search" class="form-control" id="topbarInputIconLeft"
+                <input type="text" x-model="search" class="form-control" style="width: 75%" id="topbarInputIconLeft"
                     placeholder="Search" aria-label="Search" aria-describedby="topbar-addon">
 
-                <button type="button" style="border: none; background:transparent" x-show="search !== ''"  style="" @click="clearInput()">
+                <button type="button" style="border: none; background:transparent" x-show="search !== ''"
+                    style="" @click="clearInput()">
                     <i class="bx bx-x fs-2 text-muted "></i>
                 </button>
 
@@ -110,7 +111,7 @@
                             </h6>
                         </div>
                         <template x-for="[id, name] of filteredTasks()">
-                            <a class="dropdown-item" href="/categories" style="font-size: 0.7rem"
+                            <a class="dropdown-item" :href="`/edit-task/` + id" style="font-size: 0.7rem"
                                 x-html="`<i class='bx bxs-badge-check text-success' ></i> `+name"></a>
                         </template>
                         <template x-if="filteredTasks().length === 0">

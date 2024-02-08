@@ -1,5 +1,5 @@
 <div>
-
+   
     <div class="d-lg-flex justify-content-between flex-wrap flex-md-nowrap align-items-baseline py-4">
         <div class="col-auto d-flex justify-content-between ps-0 mb-4 mb-lg-0">
             <div class="me-lg-3">
@@ -62,15 +62,15 @@
         </div>
 
 
-        <div class="col-12 col-lg-6 d-flex justify-content-lg-end search-task">
-            <div class="row">
-                <div class="col-12"> <input type="text" class="form-control  w-100 fmxw-300 d-im"
-                        placeholder="Search Tasks Here" aria-label="Search" aria-describedby="basic-addon3"
-                        wire:model.live.debounce.500ms='search'></div>
+        <div class="col-12 col-lg-6 col-xl-6 d-flex justify-content-lg-end search-task">
+
+            <input type="text" class="form-control  w-100 " placeholder="Search Tasks Here" aria-label="Search"
+                aria-describedby="basic-addon3" wire:model.live.debounce.500ms='search'>
 
 
 
-            </div>
+
+
 
 
 
@@ -114,10 +114,11 @@
 
             $wire.on('closeModal', (e) => clicked = false)
             ''">
+
+
             <button @click="clicked = !clicked" :class="clicked === true ? 'active' : ''"
                 class="btn btn-secondary btn-pill" type="button" id="check-all" data-bs-toggle="tooltip"
                 title="Select all"><ion-icon name="checkbox" wire:ignore></ion-icon></button>
-
             <div class="d-flex align-items-center mx-4">
                 <div class="spinner-border spinner-border-sm my-2" role="status" wire:loading wire:target="search">
                     <span class="visually-hidden">Loading...</span>
@@ -126,7 +127,11 @@
                 <span class="ms-2 fs--0" wire:loading wire:target="search">Searching...</span>
             </div>
         </div>
-
+        @if ($tasks->count() === 0)
+            <div class="card-body">
+                <div class="alert alert-warning ">No tasks available!</div>
+            </div>
+        @endif
         @foreach ($tasks as $task)
             <div class="card hover-state border-bottom rounded-0 rounded-top-0 py-3" x-data="{
                 checked: false,
@@ -136,64 +141,70 @@
                 x-init="status = '{{ $task->status }}';">
 
 
-                <div class="card-body d-sm-flex align-items-center flex-wrap flex-lg-nowrap py-0">
-                    <div class="col-1 text-left text-sm-center mb-2 mb-sm-0">
-                        <div class="form-check check-lg inbox-check me-sm-2"><input class="form-check-input"
-                                type="checkbox" wire:key='check_{{ $task->id }}' x-model="checkInput"
-                                :value="{{ $task->id }}" x-bind:checked="checked === true ? 'checked' : ''">
+                <div class="card-body   ">
+                    <div class="row">
+                        <div class="col-2 col-xl-1 col-lg-1 col-md-1 text-left text-sm-center mb-2 mb-sm-0">
+                            <div class="form-check check-lg inbox-check me-sm-2"><input class="form-check-input"
+                                    type="checkbox" wire:key='check_{{ $task->id }}' x-model="checkInput"
+                                    :value="{{ $task->id }}" x-bind:checked="checked === true ? 'checked' : ''">
+
+                            </div>
+                        </div>
+                        <div class="col-10 col-xl-10 col-lg-10 col-md-10 px-0 mb-4 mb-md-0">
+                            <div class="mb-2">
+                                <h3 class="h5 " :class="status === 'completed' ? 'line-through' : ''">
+                                    {{ $task->name }}
+                                </h3>
+
+                                <div class="d-md-inline-flex d-sm-inline-block">
+                                    <span class="date-category d-flex align-items-center mx-2">
+                                        <ion-icon wire:ignore name="calendar-outline" class="me-1"></ion-icon>
+                                        {{ \Carbon\Carbon::parse($task->finished_date)->format('j M, Y') }}
+                                    </span>
+
+                                    <span class="d-flex align-items-center mx-2"> <span
+                                            :class="status === 'inprogress' ? 'progress-inprogress' : '' ||
+                                                status === 'completed' ?
+                                                'progress-complete' : '' || status === 'overdue' ?
+                                                'progress-overdue' : ''"></span>
+                                        <span x-text="status.charAt(0).toUpperCase() + status.slice(1)"></span>
+                                    </span>
+                                    <span class="d-flex align-items-center mx-2">
+                                        <ion-icon wire:ignore name="grid" class="me-1"></ion-icon>
+                                        {{ $task->category }}
+                                    </span>
+                                </div>
+                            </div>
 
                         </div>
-                    </div>
-                    <div class="col-11 col-lg-8 px-0 mb-4 mb-md-0">
-                        <div class="mb-2">
-                            <h3 class="h5 " :class="status === 'completed' ? 'line-through' : ''">{{ $task->name }}
-                            </h3>
-
-                            <div class="d-inline-flex">
-                                <span class="date-category d-flex align-items-center mx-2">
-                                    <ion-icon wire:ignore name="calendar-outline" class="me-1"></ion-icon>
-                                    {{ \Carbon\Carbon::parse($task->due_date)->format('j M, Y') }}
-                                </span>
-
-                                <span class="d-flex align-items-center mx-2"> <span
-                                        :class="status === 'inprogress' ? 'progress-inprogress' : '' ||
-                                            status === 'completed' ?
-                                            'progress-complete' : '' || status === 'overdue' ? 'progress-overdue' : ''"></span>
-                                    <span x-text="status.charAt(0).toUpperCase() + status.slice(1)"></span>
-                                </span>
-                                <span class="d-flex align-items-center mx-2">
-                                    <ion-icon wire:ignore name="grid" class="me-1"></ion-icon>
-                                    {{ $task->category }}
-                                </span>
+                        <div class="col-12 col-xl-1 col-lg-1 col-md-12 ">
+                            <div class="dropdown" x-data="{ checked: @entangle('taskChecked') }">
+                                <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    :disabled="checked.length >= 1">
+                                    <ion-icon wire:ignore name="ellipsis-horizontal" class="fs-4"></ion-icon><span
+                                        class="visually-hidden">Toggle
+                                        Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
+                                    <a class="dropdown-item d-flex align-items-center" wire:navigate
+                                        href="{{ route('edit-task', $task->id) }}">
+                                        <ion-icon wire:ignore name="create" class="fs-5 me-2"></ion-icon> Edit
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#"
+                                        data-bs-toggle="modal"
+                                        @click="$dispatch('task-action', {id: ['{{ $task->id }}']})"
+                                        data-bs-target="#deleteModal">
+                                        <ion-icon wire:ignore name="trash" class="fs-5 me-2 text-danger"></ion-icon>
+                                        Delete
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
                     </div>
-                    <div
-                        class="col-10 col-sm-2 col-lg-2 col-xl-2 d-none d-lg-block d-xl-inline-flex align-items-center ms-lg-auto text-right justify-content-end px-md-0">
-                        <div class="dropdown" x-data="{ checked: @entangle('taskChecked') }">
-                            <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                :disabled="checked.length >= 1">
-                                <ion-icon wire:ignore name="ellipsis-horizontal" class="fs-4"></ion-icon><span
-                                    class="visually-hidden">Toggle
-                                    Dropdown</span>
-                            </button>
-                            <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
-                                <a class="dropdown-item d-flex align-items-center" wire:navigate
-                                    href="{{ route('edit-task', $task->id) }}">
-                                    <ion-icon wire:ignore name="create" class="fs-5 me-2"></ion-icon> Edit
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#"
-                                    data-bs-toggle="modal"
-                                    @click="$dispatch('task-action', {id: ['{{ $task->id }}']})"
-                                    data-bs-target="#deleteModal">
-                                    <ion-icon wire:ignore name="trash" class="fs-5 me-2 text-danger"></ion-icon>
-                                    Delete
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+
+
                 </div>
 
 

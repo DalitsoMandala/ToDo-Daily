@@ -1,4 +1,4 @@
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between flex-column">
 
         <h1 class="h3">Tasks</h1>
         <ul class="nav  " wire:ignore>

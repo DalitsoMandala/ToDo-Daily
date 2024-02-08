@@ -7,15 +7,15 @@
 <nav class="pb-0 navbar navbar-top navbar-expand navbar-dashboard navbar-dark ps-0 pe-2">
     <div class="px-0 container-fluid">
         <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
-         <livewire:search-component/>
+            <livewire:search-component />
             <!-- Navbar links -->
             <ul class="navbar-nav align-items-center">
                 <li class="nav-item dropdown">
                     <livewire:notification-component />
                 </li>
                 <li class="nav-item dropdown ms-lg-3">
-                    <a class="px-0 pt-1 nav-link dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="px-0 pt-1 nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         <div class="media d-flex align-items-center">
                             <img class="avatar rounded-circle" alt="Image placeholder"
                                 src="../../assets/img/team/profile-picture-3.jpg">
@@ -52,3 +52,6 @@
         </div>
     </div>
 </nav>
+<div class="d-lg-none d-xl-none d-block ">
+    <hr>
+</div>

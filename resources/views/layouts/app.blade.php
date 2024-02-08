@@ -90,9 +90,8 @@
     <body class="font-sans antialiased">
 
         <nav class="px-4 navbar navbar-dark navbar-theme-primary col-12 d-lg-none">
-            <a class="navbar-brand me-lg-5" href="../../index.html">
-                <img class="navbar-brand-dark" src="../../assets/img/brand/light.svg" alt="Volt logo" /> <img
-                    class="navbar-brand-light" src="../../assets/img/brand/dark.svg" alt="Volt logo" />
+            <a class="navbar-brand me-lg-5" href="/">
+                <x-application-logo />
             </a>
             <div class="d-flex align-items-center">
                 <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
@@ -144,7 +143,7 @@
                 </div>
                 <ul class="pt-3 nav flex-column pt-md-0">
                     <li class="nav-item">
-                        <a href="../../index.html" class="nav-link d-flex align-items-center">
+                        <a href="/" class="nav-link d-flex align-items-center">
                             <span class="sidebar-icon">
                                 <img src="./assets/img/brand/TODODAILY.png" height="20" width="20"
                                     alt="Volt Logo">
@@ -154,7 +153,7 @@
                     </li>
                     <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} ">
                         <a href="{{ route('dashboard') }}" class="nav-link" wire:navigate>
-                            <ion-icon name="tv-sharp" class="me-3"></ion-icon>
+                            <i class="bx bxs-tv me-3"></i>
                             <span class="sidebar-text">Dashboard</span>
                         </a>
                     </li>
@@ -162,7 +161,7 @@
                     <li
                         class="nav-item {{ request()->is('tasks') || request()->is('add-task') || request()->is('edit-task') ? 'active' : '' }} ">
                         <a href="{{ route('tasks') }}" class="nav-link" wire:navigate>
-                            <ion-icon name="shield-checkmark-sharp" class=" me-3"></ion-icon>
+                            <i class='bx bx-check-shield me-3'></i>
                             <span class="sidebar-text">Tasks</span>
                         </a>
                     </li>
@@ -170,14 +169,14 @@
 
                     <li class="nav-item {{ request()->is('categories') ? 'active' : '' }}">
                         <a href="{{ route('categories') }}" class="nav-link" wire:navigate>
-                            <ion-icon name="list-sharp" class="me-3"></ion-icon>
+                            <i class='bx bx-list-ul me-3'></i>
                             <span class="sidebar-text">Categories</span>
                         </a>
                     </li>
 
                     <li class="nav-item {{ request()->is('settings') ? 'active' : '' }}">
                         <a href="{{ route('settings') }}" class="nav-link" wire:navigate>
-                            <ion-icon name="cog-sharp" class="me-3"></ion-icon>
+                            <i class='bx bxs-cog me-3'></i>
                             <span class="sidebar-text">Settings</span>
                         </a>
                     </li>
@@ -196,13 +195,15 @@
                                 <span class="sidebar-icon d-inline-flex align-items-center justify-content-center">
 
                                 </span>
-                                <span>Sign Out</span>
+                                <span>Log Out</span>
                             </a>
 
                         </form>
                     </li>
                 </ul>
             </div>
+
+           
         </nav>
 
 
