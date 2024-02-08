@@ -66,7 +66,7 @@ final class CategoryTable extends PowerGridComponent
 
     public function datasource(): Collection
     {
-        $data = TaskCategory::query()->with(['tasks'])->withCount([
+        $data = TaskCategory::query()->where('user_id', auth()->user()->id)->with(['tasks'])->withCount([
             'tasks as total_tasks',
             'tasks as completed_tasks' => function ($query) {
                 $query->where('status', '=', 'completed');

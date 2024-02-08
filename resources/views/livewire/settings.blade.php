@@ -123,7 +123,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row my-5">
             <div class="col">
                 <div class="card mt-xxl-n5">
                     <div class="card-header">

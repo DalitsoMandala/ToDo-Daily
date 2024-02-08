@@ -39,21 +39,25 @@ class DatabaseSeeder extends Seeder
         TaskCategory::create([
             'name' => 'Gloceries',
             'status' => 0,
+            'user_id' => 1,
             'due_date' => $faker->dateTimeBetween('-1 month', now()),
         ]);
         TaskCategory::create([
             'name' => 'Education',
             'status' => 0,
+            'user_id' => 1,
             'due_date' => $faker->dateTimeBetween('-1 month', now()),
         ]);
         TaskCategory::create([
             'name' => 'Last Meeting',
             'status' => 0,
+            'user_id' => 1,
             'due_date' => Carbon::tomorrow(),
         ]);
         TaskCategory::create([
             'name' => 'Photograpy',
             'status' => 0,
+            'user_id' => 1,
             'due_date' => Carbon::tomorrow(),
         ]);
 

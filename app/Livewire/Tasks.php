@@ -179,24 +179,36 @@ class Tasks extends Component
         //     $tasks[$category->name] = $category->tasks;
         // }
 
-        $tasks = Task::select('tasks.*', 'users.name as user_name')
-            ->join('users', 'tasks.user_id', '=', 'users.id')
-            ->join('task_categories', 'task_categories.id', '=', 'tasks.task_category_id')
-            ->where(function ($query) {
-                $query->where('tasks.name', 'like', '%' . $this->search . '%')
-                    ->orWhere(DB::raw("DATE_FORMAT(task_categories.due_date, '%e %M, %Y')"), 'like', '%' . $this->search . '%')
-                    ->orWhere('tasks.status', 'like', '%' . $this->search . '%')
-                    ->orWhere('users.name', 'like', '%' . $this->search . '%')
-                    ->orWhere('task_categories.name', 'like', '%' . $this->search . '%');
-            })
-            ->where('archived', 0)
-            ->orderByDesc('tasks.updated_at')
-            ->paginate(5, pageName: 'tasks-page');
+        try {
+            //code...
+            $tasks = Task::join('task_categories', 'task_categories.id', '=', 'tasks.task_category_id')
+                ->join('users', 'task_categories.user_id', '=', 'users.id')
 
-        // Load categories for each task
-        $tasks->each(function ($task) {
-            $task['category'] = TaskCategory::find($task->task_category_id)->name;
-        });
+                ->where(function ($query) {
+                    $query->where('tasks.name', 'like', '%' . $this->search . '%')
+                        ->orWhere(DB::raw("DATE_FORMAT(task_categories.due_date, '%e %M, %Y')"), 'like', '%' . $this->search . '%')
+                        ->orWhere('tasks.status', 'like', '%' . $this->search . '%')
+                        ->orWhere('users.name', 'like', '%' . $this->search . '%')
+                        ->orWhere('task_categories.name', 'like', '%' . $this->search . '%');
+                })
+                ->where('tasks.archived', 0)
+                ->where('task_categories.user_id', auth()->user()->id)
+                ->select('tasks.*', 'users.name as user_name')
+                ->orderByDesc('tasks.updated_at')
+                ->paginate(5, pageName: 'tasks-page');
+
+
+            // Load categories for each task
+            $tasks->each(function ($task) {
+                $task['category'] = TaskCategory::find($task->task_category_id)->name;
+            });
+        } catch (\Throwable $th) {
+            //throw $th;
+
+            dd($th);
+        }
+
+
 
 
 

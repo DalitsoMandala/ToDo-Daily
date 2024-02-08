@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\TaskCategory;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\TodoCompleted;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class OverdueTasks extends Component
@@ -103,6 +104,12 @@ class OverdueTasks extends Component
                     ]);
 
                     session()->flash('status', 'Marked successfully!');
+                    //Notifications
+                    $completedTasks = Task::whereIn('id', $values)->pluck('name')->toArray();
+                    $user = auth()->user();
+                    $notified = $user->notify(new TodoCompleted($completedTasks));
+
+
                     $this->taskChecked = [];
                     $this->dispatch('closeModal');
                 } catch (\Throwable $th) {
@@ -121,11 +128,19 @@ class OverdueTasks extends Component
                     ]);
 
                     session()->flash('status', 'Marked successfully!');
+
+                    //Notifications
+                    $completedTasks = Task::whereIn('id', $values)->pluck('name')->toArray();
+                    $user = auth()->user();
+                    $notified = $user->notify(new TodoCompleted($completedTasks));
+
+
+
                     $this->taskChecked = [];
                     $this->dispatch('closeModal');
                 } catch (\Throwable $th) {
-                        //throw $th;
-                    ;
+                    //throw $th;
+                    dd($th);
                     session()->flash('error-message', 'Something went wrong!');
                 }
             }
@@ -160,25 +175,36 @@ class OverdueTasks extends Component
         //     $tasks[$category->name] = $category->tasks;
         // }
 
-        $tasks = Task::select('tasks.*', 'users.name as user_name')
-            ->join('users', 'tasks.user_id', '=', 'users.id')
-            ->join('task_categories', 'task_categories.id', '=', 'tasks.task_category_id')
-            ->where(function ($query) {
-                $query->where('tasks.name', 'like', '%' . $this->search . '%')
-                    ->orWhere(DB::raw("DATE_FORMAT(task_categories.due_date, '%e %M, %Y')"), 'like', '%' . $this->search . '%')
-                    ->orWhere('tasks.status', 'like', '%' . $this->search . '%')
-                    ->orWhere('users.name', 'like', '%' . $this->search . '%')
-                    ->orWhere('task_categories.name', 'like', '%' . $this->search . '%');
-            })
-            ->where('archived', 0)
-            ->where('tasks.status', 'overdue')
-            ->orderByDesc('tasks.updated_at')
-            ->paginate(5, pageName: 'tasks-page'); // You can adjust the number of items per page (e.g., 10)
+        try {
+            //code...
+            $tasks = Task::join('task_categories', 'task_categories.id', '=', 'tasks.task_category_id')
+                ->join('users', 'task_categories.user_id', '=', 'users.id')
 
-        // Load categories for each task
-        $tasks->each(function ($task) {
-            $task['category'] = TaskCategory::find($task->task_category_id)->name;
-        });
+                ->where(function ($query) {
+                    $query->where('tasks.name', 'like', '%' . $this->search . '%')
+                        ->orWhere(DB::raw("DATE_FORMAT(task_categories.due_date, '%e %M, %Y')"), 'like', '%' . $this->search . '%')
+                        ->orWhere('tasks.status', 'like', '%' . $this->search . '%')
+                        ->orWhere('users.name', 'like', '%' . $this->search . '%')
+                        ->orWhere('task_categories.name', 'like', '%' . $this->search . '%');
+                })
+                ->where('tasks.archived', 0)
+                ->where('tasks.status', 'overdue')
+                ->where('task_categories.user_id', auth()->user()->id)
+                ->select('tasks.*', 'users.name as user_name')
+                ->orderByDesc('tasks.updated_at')
+                ->paginate(5, pageName: 'tasks-page');
+
+
+            // Load categories for each task
+            $tasks->each(function ($task) {
+                $task['category'] = TaskCategory::find($task->task_category_id)->name;
+            });
+        } catch (\Throwable $th) {
+            //throw $th;
+
+            dd($th);
+        }
+
 
 
         return view('livewire.overdue-tasks', [

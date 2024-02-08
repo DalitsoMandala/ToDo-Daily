@@ -81,7 +81,7 @@ class Dashboard extends Component
         $inprogressCategories = TaskCategory::with(['tasks' => function ($query) {
             $query->select('id', 'name');
         }])->where('task_categories.status', 0)
-
+            ->where('task_categories.user_id', auth()->user()->id)
             ->withCount([
                 'tasks as total_tasks',
                 'tasks as completed_tasks' => function ($query) {
@@ -98,7 +98,7 @@ class Dashboard extends Component
         $completedCategories = TaskCategory::with(['tasks' => function ($query) {
             $query->select('id', 'name');
         }])->where('task_categories.status', 1)
-
+            ->where('task_categories.user_id', auth()->user()->id)
             ->withCount([
                 'tasks as total_tasks',
                 'tasks as completed_tasks' => function ($query) {
@@ -113,7 +113,7 @@ class Dashboard extends Component
         $overdueCategories = TaskCategory::with(['tasks' => function ($query) {
             $query->select('id', 'name');
         }])->where('task_categories.status', 2)
-
+            ->where('task_categories.user_id', auth()->user()->id)
             ->withCount([
                 'tasks as total_tasks',
                 'tasks as completed_tasks' => function ($query) {
@@ -126,9 +126,9 @@ class Dashboard extends Component
 
 
         $totalTasks = Task::count();
-        $completedTasks = Task::where('status', 'completed')->count();
+        $completedTasks = Task::where('status', 'completed')->where('tasks.user_id', auth()->user()->id)->count();
 
-        $tasks = Task::select('name', 'finished_date as due_date', 'status', 'id')->get();
+        $tasks = Task::where('tasks.user_id', auth()->user()->id)->select('name', 'finished_date as due_date', 'status', 'id')->get();
 
         $events = [];
 

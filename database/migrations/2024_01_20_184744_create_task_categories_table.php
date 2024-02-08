@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->tinyInteger('status')->default(0);
             $table->date('due_date');
+
             $table->boolean('is_notified')->default(false);
+            $table->foreignId('user_id')->constrained('users', 'id');
+
             $table->timestamps();
         });
     }
